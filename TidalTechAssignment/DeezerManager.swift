@@ -9,5 +9,7 @@
 import UIKit
 
 class DeezerManager: NSObject {
+    
+    
 
 }
