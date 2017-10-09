@@ -41,9 +41,14 @@ class SearchArtistsViewController: UIViewController {
         moreButton.setImage(UIImage.init(named: "moreMenuIcon"), for: .normal)
         return moreButton
     }()
+    //MARK: - Text Field
+    private lazy var searchTextField:UITextField = {
+        let searchTextField = UITextField()
+        return searchTextField
+    }()
     //MARK: - StackViews
     private lazy var searchBarStackView:UIStackView = {
-        let searchBarStackView = UIStackView()
+        let searchBarStackView = UIStackView(arrangedSubviews: [self.moreButton, self.searchTextField])
         searchBarStackView.axis = .horizontal
         searchBarStackView.alignment = .fill
         searchBarStackView.distribution = .fillProportionally
@@ -65,7 +70,9 @@ extension SearchArtistsViewController:UICollectionViewDataSource {
         return 5 // just for testing purposes right now
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
+        //just testing right now
+        let cell = ArtistCollectionViewCell()
+        return cell
     }
 }
 
