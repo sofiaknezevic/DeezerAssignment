@@ -10,9 +10,9 @@ import UIKit
 
 class DeezerManager: NSObject {
     
-//    public typealias SearchArtistsCompletionBlock = (URLResponse?, Data?, Error?) -> Void
+    public typealias SearchArtistsCompletionBlock = (NSArray?, Error?) -> Void
     
-    class func searchForArtist(searchString:String) {
+    class func searchForArtist(searchString:String, completionHandler:@escaping SearchArtistsCompletionBlock) {
         
         var request:URLRequest?
         
@@ -26,8 +26,9 @@ class DeezerManager: NSObject {
         URLSession.shared.dataTask(with: request!) { (data:Data?, response:URLResponse?, error:Error?) in
             
             let returnDictionary:NSDictionary = try! JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! NSDictionary
-            
-            print(returnDictionary)
+            let artistArray = returnDictionary.object(forKey: "data")
+            completionHandler(artistArray as! NSArray?, error)
+           // print(returnDictionary)
             
         }.resume()
 

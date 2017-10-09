@@ -15,6 +15,13 @@ class SearchArtistsViewController: UIViewController {
         super.viewDidLoad()
         setNeedsStatusBarAppearanceUpdate()
         setUpView()
+        DeezerManager.searchForArtist(searchString: "e") { (artistArray:NSArray?, error:Error?) in
+            if ((error) != nil) {
+                
+            } else {
+                print(artistArray as Any)
+            }
+        }
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
