@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5D66DA121F895ED60037F3D7 /* DeezerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D66DA111F895ED60037F3D7 /* DeezerManager.swift */; };
 		5D66DA141F8961B50037F3D7 /* SearchArtistsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D66DA131F8961B50037F3D7 /* SearchArtistsViewController.swift */; };
+		5D7BC6A21F8C3577005A2790 /* ArtistCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7BC6A11F8C3577005A2790 /* ArtistCollectionViewCell.swift */; };
 		5DF97F441F85486500EA3948 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF97F431F85486500EA3948 /* AppDelegate.swift */; };
 		5DF97F491F85486500EA3948 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DF97F471F85486500EA3948 /* Main.storyboard */; };
 		5DF97F4B1F85486500EA3948 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5DF97F4A1F85486500EA3948 /* Assets.xcassets */; };
@@ -18,6 +19,7 @@
 /* Begin PBXFileReference section */
 		5D66DA111F895ED60037F3D7 /* DeezerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeezerManager.swift; sourceTree = "<group>"; };
 		5D66DA131F8961B50037F3D7 /* SearchArtistsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchArtistsViewController.swift; sourceTree = "<group>"; };
+		5D7BC6A11F8C3577005A2790 /* ArtistCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistCollectionViewCell.swift; sourceTree = "<group>"; };
 		5DF97F401F85486500EA3948 /* TidalTechAssignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TidalTechAssignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DF97F431F85486500EA3948 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5DF97F481F85486500EA3948 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -71,6 +73,14 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
+		5D7BC6A01F8C354E005A2790 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5D7BC6A11F8C3577005A2790 /* ArtistCollectionViewCell.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		5DF97F371F85486500EA3948 = {
 			isa = PBXGroup;
 			children = (
@@ -95,6 +105,7 @@
 				5D3125781F894E1300E28FF2 /* StoryBoards */,
 				5D3125771F894E0800E28FF2 /* View Controllers */,
 				5D31257A1F894E7F00E28FF2 /* Models */,
+				5D7BC6A01F8C354E005A2790 /* Views */,
 			);
 			path = TidalTechAssignment;
 			sourceTree = "<group>";
@@ -175,6 +186,7 @@
 				5D66DA141F8961B50037F3D7 /* SearchArtistsViewController.swift in Sources */,
 				5D66DA121F895ED60037F3D7 /* DeezerManager.swift in Sources */,
 				5DF97F441F85486500EA3948 /* AppDelegate.swift in Sources */,
+				5D7BC6A21F8C3577005A2790 /* ArtistCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

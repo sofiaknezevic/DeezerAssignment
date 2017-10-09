@@ -30,7 +30,42 @@ class SearchArtistsViewController: UIViewController {
     }
     
     //MARK: - Lazy Initializer Variables
-//    private lazy var searchBarContainerStack:UIStackView = {
-//        
-//    }()
+    //MARK: - Artist CollectionView
+    lazy var artistCollectionView:UICollectionView = {
+        let artistCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        return artistCollectionView
+    }()
+    //MARK: - Buttons
+    private lazy var moreButton:UIButton = {
+        let moreButton = UIButton(type: UIButtonType.custom)
+        moreButton.setImage(UIImage.init(named: "moreMenuIcon"), for: .normal)
+        return moreButton
+    }()
+    //MARK: - StackViews
+    private lazy var searchBarStackView:UIStackView = {
+        let searchBarStackView = UIStackView()
+        searchBarStackView.axis = .horizontal
+        searchBarStackView.alignment = .fill
+        searchBarStackView.distribution = .fillProportionally
+        searchBarStackView.spacing = 5
+        return searchBarStackView
+    }()
 }
+
+//MARK: - Extensions - 
+//MARK: - UICollectionView Delegate & DataSource
+extension SearchArtistsViewController:UICollectionViewDelegate {
+    
+}
+extension SearchArtistsViewController:UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 5 // just for testing purposes right now
+    }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+    }
+}
+
