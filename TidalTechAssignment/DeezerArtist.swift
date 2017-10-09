@@ -9,5 +9,13 @@
 import UIKit
 
 class DeezerArtist: NSObject {
-
+    
+    var artistName = String()
+    var imageName = String()
+    
+    init(artistName:String, imageName:String) {
+        self.artistName = artistName
+        self.imageName = imageName
+    }
+    
 }
