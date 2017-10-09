@@ -28,4 +28,9 @@ class SearchArtistsViewController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
+    
+    //MARK: - Lazy Initializer Variables
+//    private lazy var searchBarContainerStack:UIStackView = {
+//        
+//    }()
 }
