@@ -28,7 +28,9 @@ class ArtistCollectionViewCell: UICollectionViewCell {
     //MARK: - Configuration
     func configureCell(artist:DeezerArtist) {
         artistNameLabel.text = artist.artistName
-        artistImageView.image = UIImage
+        if let imageURL = URL.init(string: artist.imageName) {
+            artistImageView.setImageWith(imageURL)
+        }
     }
     
     //MARK: - Lazy Initializer Variables -

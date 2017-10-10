@@ -25,6 +25,7 @@
 		5D66DA131F8961B50037F3D7 /* SearchArtistsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchArtistsViewController.swift; sourceTree = "<group>"; };
 		5D7BC6A11F8C3577005A2790 /* ArtistCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistCollectionViewCell.swift; sourceTree = "<group>"; };
 		5D7BC6A31F8C3640005A2790 /* DeezerArtist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeezerArtist.swift; sourceTree = "<group>"; };
+		5D7BC6A51F8C666D005A2790 /* TidalTechAssignment-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TidalTechAssignment-Bridging-Header.h"; sourceTree = "<group>"; };
 		5DF97F401F85486500EA3948 /* TidalTechAssignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TidalTechAssignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DF97F431F85486500EA3948 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5DF97F481F85486500EA3948 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -74,6 +75,7 @@
 		5D3125791F894E2300E28FF2 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				5D7BC6A51F8C666D005A2790 /* TidalTechAssignment-Bridging-Header.h */,
 				5DF97F4A1F85486500EA3948 /* Assets.xcassets */,
 				5DF97F4F1F85486500EA3948 /* Info.plist */,
 			);
@@ -173,6 +175,7 @@
 					5DF97F3F1F85486500EA3948 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = MKZ7XC5WW2;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -387,11 +390,14 @@
 			baseConfigurationReference = 7B82C229F0C8F88F9876E8C1 /* Pods-TidalTechAssignment.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = MKZ7XC5WW2;
 				INFOPLIST_FILE = TidalTechAssignment/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = sofiaknezevic.TidalTechAssignment;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TidalTechAssignment/TidalTechAssignment-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -401,11 +407,13 @@
 			baseConfigurationReference = 39E12D5D23A3128C66A97C5C /* Pods-TidalTechAssignment.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = MKZ7XC5WW2;
 				INFOPLIST_FILE = TidalTechAssignment/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = sofiaknezevic.TidalTechAssignment;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TidalTechAssignment/TidalTechAssignment-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
