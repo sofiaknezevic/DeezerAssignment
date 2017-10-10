@@ -15,9 +15,12 @@
 		5DF97F491F85486500EA3948 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DF97F471F85486500EA3948 /* Main.storyboard */; };
 		5DF97F4B1F85486500EA3948 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5DF97F4A1F85486500EA3948 /* Assets.xcassets */; };
 		5DF97F4E1F85486500EA3948 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DF97F4C1F85486500EA3948 /* LaunchScreen.storyboard */; };
+		C3E73E23E630F14A12660E63 /* libPods-TidalTechAssignment.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 381E215A8F801B256B9BFAAA /* libPods-TidalTechAssignment.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		381E215A8F801B256B9BFAAA /* libPods-TidalTechAssignment.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TidalTechAssignment.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		39E12D5D23A3128C66A97C5C /* Pods-TidalTechAssignment.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TidalTechAssignment.release.xcconfig"; path = "Pods/Target Support Files/Pods-TidalTechAssignment/Pods-TidalTechAssignment.release.xcconfig"; sourceTree = "<group>"; };
 		5D66DA111F895ED60037F3D7 /* DeezerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeezerManager.swift; sourceTree = "<group>"; };
 		5D66DA131F8961B50037F3D7 /* SearchArtistsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchArtistsViewController.swift; sourceTree = "<group>"; };
 		5D7BC6A11F8C3577005A2790 /* ArtistCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -28,6 +31,7 @@
 		5DF97F4A1F85486500EA3948 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5DF97F4D1F85486500EA3948 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5DF97F4F1F85486500EA3948 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7B82C229F0C8F88F9876E8C1 /* Pods-TidalTechAssignment.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TidalTechAssignment.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TidalTechAssignment/Pods-TidalTechAssignment.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,12 +39,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3E73E23E630F14A12660E63 /* libPods-TidalTechAssignment.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1BBC856C5D88C7353639EA61 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				381E215A8F801B256B9BFAAA /* libPods-TidalTechAssignment.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		5D3125771F894E0800E28FF2 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -89,6 +102,8 @@
 			children = (
 				5DF97F421F85486500EA3948 /* TidalTechAssignment */,
 				5DF97F411F85486500EA3948 /* Products */,
+				AAC7A0FB3FA76FB261B96B5A /* Pods */,
+				1BBC856C5D88C7353639EA61 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -113,6 +128,15 @@
 			path = TidalTechAssignment;
 			sourceTree = "<group>";
 		};
+		AAC7A0FB3FA76FB261B96B5A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7B82C229F0C8F88F9876E8C1 /* Pods-TidalTechAssignment.debug.xcconfig */,
+				39E12D5D23A3128C66A97C5C /* Pods-TidalTechAssignment.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -120,9 +144,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5DF97F521F85486500EA3948 /* Build configuration list for PBXNativeTarget "TidalTechAssignment" */;
 			buildPhases = (
+				30B93D481845CCA2D23DCE0D /* [CP] Check Pods Manifest.lock */,
 				5DF97F3C1F85486500EA3948 /* Sources */,
 				5DF97F3D1F85486500EA3948 /* Frameworks */,
 				5DF97F3E1F85486500EA3948 /* Resources */,
+				4216B3D55F1DC4669294D812 /* [CP] Embed Pods Frameworks */,
+				77237D4074F5A24B8BE4CC32 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -180,6 +207,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		30B93D481845CCA2D23DCE0D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		4216B3D55F1DC4669294D812 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TidalTechAssignment/Pods-TidalTechAssignment-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		77237D4074F5A24B8BE4CC32 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TidalTechAssignment/Pods-TidalTechAssignment-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5DF97F3C1F85486500EA3948 /* Sources */ = {
@@ -309,6 +384,7 @@
 		};
 		5DF97F531F85486500EA3948 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B82C229F0C8F88F9876E8C1 /* Pods-TidalTechAssignment.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = MKZ7XC5WW2;
@@ -322,6 +398,7 @@
 		};
 		5DF97F541F85486500EA3948 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 39E12D5D23A3128C66A97C5C /* Pods-TidalTechAssignment.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = MKZ7XC5WW2;
