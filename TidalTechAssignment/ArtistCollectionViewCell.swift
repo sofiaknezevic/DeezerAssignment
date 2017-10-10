@@ -10,6 +10,21 @@ import UIKit
 
 class ArtistCollectionViewCell: UICollectionViewCell {
     
+    //MARK: - Initializers
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        contentView.addSubview(artistNameLabel)
+        artistNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        artistNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8).isActive = true
+        artistNameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8).isActive = true
+        artistNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8).isActive = true
+        artistNameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8).isActive = true
+    }
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     //MARK: - Configuration
     func configureCell(artist:DeezerArtist) {
         artistNameLabel.text = artist.artistName

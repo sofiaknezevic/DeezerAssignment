@@ -16,9 +16,11 @@ class SearchArtistsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setNeedsStatusBarAppearanceUpdate()
-        setUpView()
         
+        let group = DispatchGroup()
+        group.enter()
         DeezerManager.searchForArtist(artists: artistArray, searchString: "e") { (artists:[DeezerArtist]?, error:Error?) in
+            
             if ((error) != nil) {
                 
             } else {
@@ -26,6 +28,10 @@ class SearchArtistsViewController: UIViewController {
                     self.artistArray.append(artist)
                 }
             }
+            group.leave()
+        }
+        group.notify(queue: DispatchQueue.main) { 
+            self.setUpView()
         }
     }
     override func didReceiveMemoryWarning() {
@@ -115,8 +121,15 @@ extension SearchArtistsViewController:UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //just testing right now
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "artistCollectionViewCell", for: indexPath) as! ArtistCollectionViewCell
-
+        cell.configureCell(artist: self.artistArray[indexPath.item])
         return cell
+    }
+}
+
+//MARK: - UICollectionViewFlowLayout Delegate
+extension SearchArtistsViewController:UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.bounds.width, height: 50)
     }
 }
 
