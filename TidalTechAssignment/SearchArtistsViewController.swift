@@ -64,19 +64,33 @@ class SearchArtistsViewController: UIViewController {
                     
                 } else {
                     for artist in artists! {
-//                        if !(self.artistArray.contains(artist)) {
-                            self.artistArray.append(artist)
-//                        }
+                        self.artistArray.append(artist)
                         print(artist.artistName)
                     }
                 }
                 group.leave()
             }
             group.notify(queue: DispatchQueue.main) {
+                self.filterArtistArray()
                 self.artistCollectionView.reloadData()
             }
         } else {
             self.artistCollectionView.reloadData()
+        }
+    }
+    func filterArtistArray() {
+        if let searchText = searchTextField.text {
+            let beginsWithPredicate = NSPredicate.init(format: "artistName beginsWith [cd] %@", searchText)
+            let containsPredicate = NSPredicate.init(format: "artistName contains [cd] %@", searchText)
+            let filteredArray = (self.artistArray as NSArray).filtered(using: beginsWithPredicate)
+            let containsArray = (self.artistArray as NSArray).filtered(using: containsPredicate) as! [DeezerArtist]
+            self.artistArray = filteredArray as! [DeezerArtist]
+            
+            for containsArtists in containsArray {
+                if !(self.artistArray.contains(containsArtists)) {
+                    self.artistArray.append(containsArtists)
+                }
+            }
         }
     }
     
