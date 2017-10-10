@@ -11,6 +11,7 @@
 		5D66DA141F8961B50037F3D7 /* SearchArtistsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D66DA131F8961B50037F3D7 /* SearchArtistsViewController.swift */; };
 		5D7BC6A21F8C3577005A2790 /* ArtistCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7BC6A11F8C3577005A2790 /* ArtistCollectionViewCell.swift */; };
 		5D7BC6A41F8C3640005A2790 /* DeezerArtist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7BC6A31F8C3640005A2790 /* DeezerArtist.swift */; };
+		5D7BC6AB1F8D19DD005A2790 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7BC6AA1F8D19DD005A2790 /* Utilities.swift */; };
 		5DF97F441F85486500EA3948 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF97F431F85486500EA3948 /* AppDelegate.swift */; };
 		5DF97F491F85486500EA3948 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DF97F471F85486500EA3948 /* Main.storyboard */; };
 		5DF97F4B1F85486500EA3948 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5DF97F4A1F85486500EA3948 /* Assets.xcassets */; };
@@ -26,6 +27,7 @@
 		5D7BC6A11F8C3577005A2790 /* ArtistCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArtistCollectionViewCell.swift; sourceTree = "<group>"; };
 		5D7BC6A31F8C3640005A2790 /* DeezerArtist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeezerArtist.swift; sourceTree = "<group>"; };
 		5D7BC6A51F8C666D005A2790 /* TidalTechAssignment-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TidalTechAssignment-Bridging-Header.h"; sourceTree = "<group>"; };
+		5D7BC6AA1F8D19DD005A2790 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		5DF97F401F85486500EA3948 /* TidalTechAssignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TidalTechAssignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DF97F431F85486500EA3948 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5DF97F481F85486500EA3948 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -99,6 +101,14 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		5D7BC6A91F8D19D0005A2790 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				5D7BC6AA1F8D19DD005A2790 /* Utilities.swift */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
 		5DF97F371F85486500EA3948 = {
 			isa = PBXGroup;
 			children = (
@@ -122,10 +132,11 @@
 			children = (
 				5DF97F431F85486500EA3948 /* AppDelegate.swift */,
 				5D3125791F894E2300E28FF2 /* Assets */,
-				5D3125781F894E1300E28FF2 /* StoryBoards */,
+				5D7BC6A91F8D19D0005A2790 /* Helpers */,
 				5D3125771F894E0800E28FF2 /* View Controllers */,
 				5D31257A1F894E7F00E28FF2 /* Models */,
 				5D7BC6A01F8C354E005A2790 /* Views */,
+				5D3125781F894E1300E28FF2 /* StoryBoards */,
 			);
 			path = TidalTechAssignment;
 			sourceTree = "<group>";
@@ -264,6 +275,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D7BC6AB1F8D19DD005A2790 /* Utilities.swift in Sources */,
 				5D7BC6A41F8C3640005A2790 /* DeezerArtist.swift in Sources */,
 				5D66DA141F8961B50037F3D7 /* SearchArtistsViewController.swift in Sources */,
 				5D66DA121F895ED60037F3D7 /* DeezerManager.swift in Sources */,

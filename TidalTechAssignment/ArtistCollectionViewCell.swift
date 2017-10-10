@@ -17,7 +17,7 @@ class ArtistCollectionViewCell: UICollectionViewCell {
         artistNameLabel.translatesAutoresizingMaskIntoConstraints = false
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        artistImageView.widthAnchor.constraint(equalTo: artistImageView.heightAnchor, multiplier: 2).isActive = true
+//        artistImageView.widthAnchor.constraint(equalTo: artistImageView.heightAnchor, multiplier: i2).isActive = true
         
         containerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8).isActive = true
         containerStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8).isActive = true
@@ -32,7 +32,13 @@ class ArtistCollectionViewCell: UICollectionViewCell {
     func configureCell(artist:DeezerArtist) {
         artistNameLabel.text = artist.artistName
         if let imageURL = URL.init(string: artist.imageName) {
-            artistImageView.setImageWith(URLRequest.init(url: imageURL), placeholderImage: nil, success: nil, failure: nil)
+            
+            artistImageView.setImageWith(URLRequest.init(url: imageURL), placeholderImage: nil, success: { (request:URLRequest, response:HTTPURLResponse?, image:UIImage) in
+                weak var weakSelf = self
+                weakSelf?.artistImageView.image = image
+            }, failure: { (request:URLRequest, response:HTTPURLResponse?, error:Error) in
+                
+            })
         }
     }
     
@@ -41,7 +47,7 @@ class ArtistCollectionViewCell: UICollectionViewCell {
     private lazy var artistNameLabel:UILabel = {
         let artistNameLabel = UILabel()
         artistNameLabel.textColor = .white
-        artistNameLabel.font = UIFont.systemFont(ofSize: 10)
+        artistNameLabel.font = UIFont.systemFont(ofSize: 20)
         return artistNameLabel
     }()
     //MARK: - ImageView
@@ -52,7 +58,7 @@ class ArtistCollectionViewCell: UICollectionViewCell {
     }()
     //MARK: - Container StackView
     private lazy var containerStackView:UIStackView = {
-        let containerStackView = UIStackView(arrangedSubviews: [self.artistImageView, self.artistNameLabel])
+        let containerStackView = UIStackView(arrangedSubviews: [self.artistNameLabel])
         containerStackView.axis = .horizontal
         containerStackView.alignment = .fill
         containerStackView.distribution = .fillProportionally

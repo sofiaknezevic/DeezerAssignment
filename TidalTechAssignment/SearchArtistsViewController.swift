@@ -63,35 +63,37 @@ class SearchArtistsViewController: UIViewController {
                 if ((error) != nil) {
                     
                 } else {
-                    for artist in artists! {
+                    var deezerArtists = artists
+                    for artist in self.filterArtistArray(artistArray: deezerArtists) {
                         self.artistArray.append(artist)
-                        print(artist.artistName)
                     }
+                    deezerArtists?.removeAll()
                 }
                 group.leave()
             }
             group.notify(queue: DispatchQueue.main) {
-                self.filterArtistArray()
+                
                 self.artistCollectionView.reloadData()
             }
         } else {
             self.artistCollectionView.reloadData()
         }
     }
-    func filterArtistArray() {
-        if let searchText = searchTextField.text {
+    func filterArtistArray(artistArray:[DeezerArtist]?) -> [DeezerArtist] {
+        var containerArray = [DeezerArtist]()
+        containerArray.removeAll()
+        if let searchText = searchTextField.text, let artists = artistArray {
             let beginsWithPredicate = NSPredicate.init(format: "artistName beginsWith [cd] %@", searchText)
-            let containsPredicate = NSPredicate.init(format: "artistName contains [cd] %@", searchText)
-            let filteredArray = (self.artistArray as NSArray).filtered(using: beginsWithPredicate)
-            let containsArray = (self.artistArray as NSArray).filtered(using: containsPredicate) as! [DeezerArtist]
-            self.artistArray = filteredArray as! [DeezerArtist]
+            let containsPredicate = NSPredicate.init(format: "not (artistName beginsWith [cd] %@)", searchText)
+            let filteredArray = (artists as NSArray).filtered(using: beginsWithPredicate) as! [DeezerArtist]
+            let containsArray = (artists as NSArray).filtered(using: containsPredicate) as! [DeezerArtist]
             
-            for containsArtists in containsArray {
-                if !(self.artistArray.contains(containsArtists)) {
-                    self.artistArray.append(containsArtists)
-                }
-            }
+            containerArray = filteredArray + containsArray
         }
+        for artists in containerArray {
+            print(artists.artistName)
+        }
+        return containerArray
     }
     
     //MARK: - Lazy Initializer Variables
