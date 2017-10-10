@@ -17,7 +17,7 @@ class ArtistCollectionViewCell: UICollectionViewCell {
         artistNameLabel.translatesAutoresizingMaskIntoConstraints = false
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
         
-//        artistImageView.widthAnchor.constraint(equalTo: artistImageView.heightAnchor, multiplier: i2).isActive = true
+        artistImageView.widthAnchor.constraint(equalTo: artistImageView.heightAnchor, multiplier: 2).isActive = true
         
         containerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8).isActive = true
         containerStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8).isActive = true
@@ -31,9 +31,9 @@ class ArtistCollectionViewCell: UICollectionViewCell {
     //MARK: - Configuration
     func configureCell(artist:DeezerArtist) {
         artistNameLabel.text = artist.artistName
-        if let imageURL = URL.init(string: artist.imageName) {
+        if let imageURL = URL.init(string: artist.imageName), let placeholderImage = Utilities.deezerPlaceholderImage() {
             
-            artistImageView.setImageWith(URLRequest.init(url: imageURL), placeholderImage: nil, success: { (request:URLRequest, response:HTTPURLResponse?, image:UIImage) in
+            artistImageView.setImageWith(URLRequest.init(url: imageURL), placeholderImage: placeholderImage, success: { (request:URLRequest, response:HTTPURLResponse?, image:UIImage) in
                 weak var weakSelf = self
                 weakSelf?.artistImageView.image = image
             }, failure: { (request:URLRequest, response:HTTPURLResponse?, error:Error) in
@@ -58,7 +58,7 @@ class ArtistCollectionViewCell: UICollectionViewCell {
     }()
     //MARK: - Container StackView
     private lazy var containerStackView:UIStackView = {
-        let containerStackView = UIStackView(arrangedSubviews: [self.artistNameLabel])
+        let containerStackView = UIStackView(arrangedSubviews: [self.artistImageView, self.artistNameLabel])
         containerStackView.axis = .horizontal
         containerStackView.alignment = .fill
         containerStackView.distribution = .fillProportionally

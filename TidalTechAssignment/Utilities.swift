@@ -10,6 +10,14 @@ import UIKit
 
 class Utilities: NSObject {
     
+    class func deezerPlaceholderImage() -> UIImage? {
+        let containerImageView = UIImageView()
+        if let placeholderImageURL = URL.init(string: "https://api.deezer.com/artist/12641945/image") {
+            containerImageView.setImageWith(placeholderImageURL)
+        }
+        return containerImageView.image
+    }
+    
 }
 
 //MARK: - Extensions - 
