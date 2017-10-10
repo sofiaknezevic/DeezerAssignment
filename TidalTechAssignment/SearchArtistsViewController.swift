@@ -16,27 +16,10 @@ class SearchArtistsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setNeedsStatusBarAppearanceUpdate()
-        
-        let group = DispatchGroup()
-        group.enter()
-        DeezerManager.searchForArtist(artists: artistArray, searchString: "e") { (artists:[DeezerArtist]?, error:Error?) in
-            
-            if ((error) != nil) {
-                
-            } else {
-                for artist in artists! {
-                    self.artistArray.append(artist)
-                }
-            }
-            group.leave()
-        }
-        group.notify(queue: DispatchQueue.main) { 
-            self.setUpView()
-        }
+        setUpView()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     //MARK: - Setup & Configuration
@@ -70,6 +53,32 @@ class SearchArtistsViewController: UIViewController {
     }
     
     //MARK: - Search Functionality
+    func searchAndDisplayArtists() {
+        self.artistArray.removeAll()
+        let group = DispatchGroup()
+        group.enter()
+        if (searchTextField.text != nil) && searchTextField.text != "" {
+            DeezerManager.searchForArtist(artists: artistArray, searchString: searchTextField.text!) { (artists:[DeezerArtist]?, error:Error?) in
+                
+                if ((error) != nil) {
+                    
+                } else {
+                    for artist in artists! {
+//                        if !(self.artistArray.contains(artist)) {
+                            self.artistArray.append(artist)
+//                        }
+                        print(artist.artistName)
+                    }
+                }
+                group.leave()
+            }
+            group.notify(queue: DispatchQueue.main) {
+                self.artistCollectionView.reloadData()
+            }
+        } else {
+            self.artistCollectionView.reloadData()
+        }
+    }
     
     //MARK: - Lazy Initializer Variables
     //MARK: - Artist CollectionView
@@ -93,6 +102,7 @@ class SearchArtistsViewController: UIViewController {
     private lazy var searchTextField:UITextField = {
         let searchTextField = UITextField()
         searchTextField.backgroundColor = .white
+        searchTextField.addTarget(self, action: #selector(searchAndDisplayArtists), for: UIControlEvents.editingChanged)
         return searchTextField
     }()
     //MARK: - StackViews
