@@ -54,6 +54,10 @@ class SearchArtistsViewController: UIViewController {
     
     //MARK: - Search Functionality
     func searchAndDisplayArtists() {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(searchySearch), object: nil)
+        self.perform(#selector(searchySearch), with: nil, afterDelay: 0.5)
+    }
+    func searchySearch() {
         self.artistArray.removeAll()
         let group = DispatchGroup()
         group.enter()
