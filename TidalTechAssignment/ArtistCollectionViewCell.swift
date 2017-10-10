@@ -15,6 +15,9 @@ class ArtistCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         contentView.addSubview(containerStackView)
         artistNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        artistImageView.widthAnchor.constraint(equalTo: artistImageView.heightAnchor, multiplier: 2).isActive = true
         
         containerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8).isActive = true
         containerStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8).isActive = true
@@ -29,7 +32,7 @@ class ArtistCollectionViewCell: UICollectionViewCell {
     func configureCell(artist:DeezerArtist) {
         artistNameLabel.text = artist.artistName
         if let imageURL = URL.init(string: artist.imageName) {
-            artistImageView.setImageWith(imageURL)
+            artistImageView.setImageWith(URLRequest.init(url: imageURL), placeholderImage: nil, success: nil, failure: nil)
         }
     }
     
@@ -44,6 +47,7 @@ class ArtistCollectionViewCell: UICollectionViewCell {
     //MARK: - ImageView
     private lazy var artistImageView:UIImageView = {
         let artistImageView = UIImageView()
+        artistImageView.contentMode = .scaleAspectFill
         return artistImageView
     }()
     //MARK: - Container StackView
