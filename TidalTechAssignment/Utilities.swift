@@ -18,11 +18,10 @@ extension String {
     func trimmedStringForURL(urlString:String) -> String {
         var trimmedString = String()
         
-        trimmedString = urlString.replacingOccurrences(of: " ", with: "%20")
-        if urlString.contains("&") {
-
+        if let urlEncodedString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+            trimmedString = urlEncodedString
         }
-        trimmedString = urlString.replacingOccurrences(of: "&", with: "%26")
+        trimmedString = trimmedString.replacingOccurrences(of: "&", with: "%20%26")
         
         return trimmedString
     }

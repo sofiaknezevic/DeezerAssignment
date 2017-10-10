@@ -15,11 +15,10 @@ class DeezerManager: NSObject {
     class func searchForArtist(artists:[DeezerArtist], searchString:String, completionHandler:@escaping SearchArtistsCompletionBlock) {
         var artistArray = artists
         var request:URLRequest?
-        let trimmedString = searchString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-        if let urlTrimmedString = trimmedString {
-            if let searchURL = URL.init(string: String.init(format: "https://api.deezer.com/search/artist?q=%@", urlTrimmedString)) {
-                request = URLRequest.init(url: searchURL)
-            }
+        let trimmedString = searchString.trimmedStringForURL(urlString: searchString)
+        
+        if let searchURL = URL.init(string: String.init(format: "https://api.deezer.com/search/artist?q=%@", trimmedString)) {
+            request = URLRequest.init(url: searchURL)
         }
         
         request?.httpMethod = "GET"
