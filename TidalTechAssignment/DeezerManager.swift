@@ -19,7 +19,7 @@ class DeezerManager: NSObject {
         var request:URLRequest?
         let trimmedString = searchString.trimmedStringForURL(urlString: searchString)
         
-        if let searchURL = URL.init(string: String.init(format: "https://api.deezer.com/search/artist?q=%@", trimmedString)) {
+        if let searchURL = URL.init(string: String.init(format: "%@search/artist?q=%@", API.deezerBaseAPI, trimmedString)) {
             request = URLRequest.init(url: searchURL)
         }
         
@@ -53,7 +53,7 @@ class DeezerManager: NSObject {
     class func retrieveArtistAlbums(artist:DeezerArtist, completionHandler:@escaping RetrieveArtistAlbumsCompletionBlock) {
         var albumArray = [DeezerAlbum]()
         var request:URLRequest?
-        if let retrieveAlbumsURL = URL.init(string: String.init(format: "https://api.deezer.com/artist/%@/albums", artist.artistID)) {
+        if let retrieveAlbumsURL = URL.init(string: String.init(format: "%@artist/%@/albums", API.deezerBaseAPI, artist.artistID)) {
             request = URLRequest.init(url: retrieveAlbumsURL)
         }
         
@@ -83,7 +83,7 @@ class DeezerManager: NSObject {
     class func retrieveAlbumTracks(album:DeezerAlbum, completionHandler:@escaping RetrieveAlbumTracksCompletionBlock) {
         var trackArray = [DeezerTrack]()
         var request:URLRequest?
-        if let retrieveTracksURL = URL.init(string: String.init(format: "https://api.deezer.com/album/%@/tracks", album.albumID)) {
+        if let retrieveTracksURL = URL.init(string: String.init(format: "%@album/%@/tracks", API.deezerBaseAPI, album.albumID)) {
             request = URLRequest.init(url: retrieveTracksURL)
         }
         request?.httpMethod = "GET"

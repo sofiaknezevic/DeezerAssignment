@@ -55,6 +55,13 @@ struct StringConstants {
     
     static let fetchRequestErrorTitle = "Sorry, something went wrong!"
 }
+//MARK: - API
+struct API {
+    
+    private init() {}
+    
+    static let deezerBaseAPI = "https://api.deezer.com/"
+}
 
 //MARK: - Extensions - 
 //MARK: - String
