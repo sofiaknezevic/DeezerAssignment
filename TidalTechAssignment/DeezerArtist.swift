@@ -14,10 +14,13 @@ class DeezerArtist: NSObject {
     var artistImageName = String()
     var artistID = NSNumber()
     
-    init(artistName:String, artistImageName:String, artistID:NSNumber) {
-        self.artistName = artistName
-        self.artistImageName = artistImageName
-        self.artistID = artistID
+    init(artistName:String?, artistImageName:String?, artistID:NSNumber?) {
+        
+        if let name = artistName, let imageName = artistImageName, let ID = artistID {
+            self.artistName = name
+            self.artistImageName = imageName
+            self.artistID = ID
+        }
     }
     
 }

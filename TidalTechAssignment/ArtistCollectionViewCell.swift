@@ -14,7 +14,8 @@ class ArtistCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(containerStackView)
-//        artistNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.backgroundColor = UIColor.init(colorLiteralRed: (35/251), green: (35/251), blue: (35/251), alpha: 1)
+
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
         
         artistImageView.widthAnchor.constraint(equalToConstant: 80).isActive = true
@@ -35,7 +36,6 @@ class ArtistCollectionViewCell: UICollectionViewCell {
         if let imageURL = URL.init(string: artist.artistImageName), let placeholderImage = UIImage.init(named: "placeholderArtistImage") {
             
             artistImageView.setImageWith(URLRequest.init(url: imageURL), placeholderImage: placeholderImage, success: { (request:URLRequest, response:HTTPURLResponse?, image:UIImage) in
-                //do I need to make this a weak self pointer?
                 self.artistImageView.image = image
             }, failure: { (request:URLRequest, response:HTTPURLResponse?, error:Error) in
                 
@@ -48,7 +48,7 @@ class ArtistCollectionViewCell: UICollectionViewCell {
     private lazy var artistNameLabel:UILabel = {
         let artistNameLabel = UILabel()
         artistNameLabel.textColor = .white
-        artistNameLabel.font = UIFont.systemFont(ofSize: 20)
+        artistNameLabel.numberOfLines = 0
         return artistNameLabel
     }()
     //MARK: - ImageView

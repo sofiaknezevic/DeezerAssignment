@@ -10,6 +10,57 @@ import UIKit
 
 class Utilities: NSObject {
     
+    class func constrainToAllSides(childView:UIView, parentView:UIView) {
+        childView.translatesAutoresizingMaskIntoConstraints = false
+        childView.leadingAnchor.constraint(equalTo: parentView.leadingAnchor).isActive = true
+        childView.topAnchor.constraint(equalTo: parentView.topAnchor).isActive = true
+        childView.trailingAnchor.constraint(equalTo: parentView.trailingAnchor).isActive = true
+        childView.bottomAnchor.constraint(equalTo: parentView.bottomAnchor).isActive = true
+    }
+
+    class func constrainLeadingAndTrailing(childView:UIView, parentView:UIView, constant:CGFloat) {
+        childView.translatesAutoresizingMaskIntoConstraints = false
+        childView.leadingAnchor.constraint(equalTo: parentView.leadingAnchor, constant:constant).isActive = true
+        childView.trailingAnchor.constraint(equalTo: parentView.trailingAnchor, constant:-constant).isActive = true
+    }
+}
+
+//MARK: - Structs -
+//MARK: - Sizes
+struct SizeConstants {
+    
+    private init() {}
+    
+    static let iconImageHeight = CGFloat.init(15)
+    static let barHeightMultipler = CGFloat.init(0.12)
+    static let marginPadding = CGFloat.init(8)
+    static let artistCellHeight = CGFloat.init(66)
+}
+//MARK: - Strings
+struct StringConstants {
+    
+    private init() {}
+    
+    static let artistCellIdentifier = "artistCollectionViewCell"
+    static let albumCellIdentifier = "albumCollectionViewCell"
+    static let trackCellIdentifier = "trackCollectionViewCell"
+    
+    static let artistSectionText = "ARTISTS"
+    static let albumsLabelText = "Albums"
+    
+    static let microphoneImageName = "microphone"
+    static let clearIconImageName = "clearIcon"
+    static let moreMenuIconImageName = "moreMenuIcon"
+    static let searchIconImageName = "searchIcon"
+    
+    static let fetchRequestErrorTitle = "Sorry, something went wrong!"
+}
+//MARK: - API
+struct API {
+    
+    private init() {}
+    
+    static let deezerBaseAPI = "https://api.deezer.com/"
 }
 
 //MARK: - Extensions - 
@@ -30,16 +81,15 @@ extension String {
 //MARK: - Button
 extension UIButton {
     func constrainIconButton(iconButton:UIButton) {
-        iconButton.translatesAutoresizingMaskIntoConstraints = false
-        iconButton.widthAnchor.constraint(equalTo: iconButton.heightAnchor).isActive = true
-        
         if let iconButtonImageView = iconButton.imageView {
             iconButtonImageView.contentMode = .scaleAspectFit
             iconButtonImageView.translatesAutoresizingMaskIntoConstraints = false
             
-            iconButtonImageView.heightAnchor.constraint(equalToConstant: 15).isActive = true
+            iconButtonImageView.heightAnchor.constraint(equalToConstant: SizeConstants.iconImageHeight).isActive = true
             iconButtonImageView.widthAnchor.constraint(equalTo: iconButtonImageView.heightAnchor).isActive = true
         }
+        iconButton.translatesAutoresizingMaskIntoConstraints = false
+        iconButton.widthAnchor.constraint(equalTo: iconButton.heightAnchor).isActive = true
     }
 }
 
@@ -52,8 +102,16 @@ extension UIImageView {
         
         imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor).isActive = true
         containerView.heightAnchor.constraint(equalTo: imageView.heightAnchor, multiplier:2).isActive = true
-        containerView.widthAnchor.constraint(equalTo: imageView.widthAnchor, multiplier:2).isActive = true
+        containerView.widthAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
         imageView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
         imageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
     }
 }
+
+//MARK: - UIViewController
+extension UIViewController {
+    func dismissSelf () {
+        dismiss(animated: true, completion: nil)
+    }
+}
+

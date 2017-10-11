@@ -15,11 +15,13 @@ class DeezerAlbum: NSObject {
     var albumName = String()
     var albumID = NSNumber()
     
-    init(albumArtistName:String, albumImageName:String, albumName:String, albumID:NSNumber) {
-        self.albumArtistName = albumArtistName
-        self.albumImageName = albumImageName
-        self.albumName = albumName
-        self.albumID = albumID
+    init(albumArtistName:String?, albumImageName:String?, albumName:String?, albumID:NSNumber?) {
+        if let artistName = albumArtistName, let imageName = albumImageName, let name = albumName, let ID = albumID{
+            self.albumArtistName = artistName
+            self.albumImageName = imageName
+            self.albumName = name
+            self.albumID = ID
+        }
     }
     
 }
