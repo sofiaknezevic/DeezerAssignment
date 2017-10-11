@@ -11,7 +11,12 @@ import UIKit
 class SearchArtistsViewController: UIViewController {
     
     var artistArray = [DeezerArtist]()
-    let containerView = UIView()
+    
+    let searchBarContainerView = UIView()
+    
+    let artistSectionContainerView = UIView()
+    let artistSectionImageView = UIImageView()
+    let artistSectionLabel = UILabel()
     
     //MARK: - View LifeCycle
     override func viewDidLoad() {
@@ -24,33 +29,60 @@ class SearchArtistsViewController: UIViewController {
     
     //MARK: - Setup & Configuration
     private func setUpView() {
-        containerView.addSubview(searchBarStackView)
-        containerView.backgroundColor = UIColor.init(colorLiteralRed: (28/251), green: (28/251), blue: (28/251), alpha: 1)
-        view.addSubview(containerView)
+        artistSectionContainerView.addSubview(artistSectionStackView)
+        searchBarContainerView.addSubview(searchBarStackView)
+        searchBarContainerView.backgroundColor = UIColor.init(colorLiteralRed: (28/251), green: (28/251), blue: (28/251), alpha: 1)
+        artistSectionContainerView.backgroundColor = UIColor.init(colorLiteralRed: (35/251), green: (35/251), blue: (35/251), alpha: 1)
+        view.addSubview(searchBarContainerView)
+        view.addSubview(artistSectionContainerView)
         view.addSubview(artistCollectionView)
         view.backgroundColor = .black
         
         //constraints
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        containerView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
-        containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        containerView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.1).isActive = true
+        searchBarContainerView.translatesAutoresizingMaskIntoConstraints = false
+        searchBarContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        searchBarContainerView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
+        searchBarContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        searchBarContainerView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.1).isActive = true
         
+        artistSectionContainerView.translatesAutoresizingMaskIntoConstraints = false
+        artistSectionContainerView.topAnchor.constraint(equalTo: searchBarContainerView.bottomAnchor).isActive = true
+        artistSectionContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        artistSectionContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        artistSectionContainerView.heightAnchor.constraint(equalTo: searchBarContainerView.heightAnchor).isActive = true
+        
+        
+        artistSectionStackView.translatesAutoresizingMaskIntoConstraints = false
+        artistSectionStackView.leadingAnchor.constraint(equalTo: artistSectionContainerView.leadingAnchor).isActive = true
+        artistSectionStackView.topAnchor.constraint(equalTo: artistSectionContainerView.topAnchor).isActive = true
+        artistSectionStackView.trailingAnchor.constraint(equalTo: artistSectionContainerView.trailingAnchor).isActive = true
+        artistSectionStackView.bottomAnchor.constraint(equalTo: artistSectionContainerView.bottomAnchor).isActive = true
+        
+        artistSectionImageView.translatesAutoresizingMaskIntoConstraints = false
+        artistSectionImageView.contentMode = .center
+        artistSectionImageView.widthAnchor.constraint(equalTo: artistSectionImageView.heightAnchor).isActive = true
+        
+        if let artistSectionImage = UIImage.init(named: "microphone") {
+            artistSectionImageView.image = artistSectionImage
+        }
+        
+        artistSectionLabel.text = "ARTIST"
+        artistSectionLabel.textColor = .white
 
         if let moreButtonImageView = moreButton.imageView {
             moreButtonImageView.translatesAutoresizingMaskIntoConstraints = false
-            moreButtonImageView.widthAnchor.constraint(equalToConstant: 25).isActive = true
-            moreButtonImageView.heightAnchor.constraint(equalToConstant: 25).isActive = true
+            moreButtonImageView.widthAnchor.constraint(equalTo: moreButtonImageView.heightAnchor).isActive = true
+            moreButtonImageView.contentMode = .center
+            
         }
         moreButton.widthAnchor.constraint(equalTo: moreButton.heightAnchor).isActive = true
         searchBarStackView.translatesAutoresizingMaskIntoConstraints = false
-        searchBarStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 8).isActive = true
-        searchBarStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 8).isActive = true
-        searchBarStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8).isActive = true
-        searchBarStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
+        searchBarStackView.topAnchor.constraint(equalTo: searchBarContainerView.topAnchor, constant: 8).isActive = true
+        searchBarStackView.leadingAnchor.constraint(equalTo: searchBarContainerView.leadingAnchor, constant: 8).isActive = true
+        searchBarStackView.trailingAnchor.constraint(equalTo: searchBarContainerView.trailingAnchor, constant: -8).isActive = true
+        searchBarStackView.bottomAnchor.constraint(equalTo: searchBarContainerView.bottomAnchor).isActive = true
         
-        artistCollectionView.topAnchor.constraint(equalTo: searchBarStackView.bottomAnchor).isActive = true
+        artistCollectionView.topAnchor.constraint(equalTo: artistSectionContainerView.bottomAnchor, constant: 5).isActive = true
         artistCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         artistCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         artistCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
@@ -137,6 +169,14 @@ class SearchArtistsViewController: UIViewController {
         searchBarStackView.distribution = .fillProportionally
         searchBarStackView.spacing = 5
         return searchBarStackView
+    }()
+    private lazy var artistSectionStackView:UIStackView = {
+        let artistSectionStackView = UIStackView.init(arrangedSubviews: [self.artistSectionImageView, self.artistSectionLabel])
+        artistSectionStackView.axis = .horizontal
+        artistSectionStackView.alignment = .fill
+        artistSectionStackView.distribution = .fillProportionally
+        artistSectionStackView.spacing = 5
+        return artistSectionStackView
     }()
 }
 
