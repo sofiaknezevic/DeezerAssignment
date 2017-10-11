@@ -1,24 +1,21 @@
 //
-//  ArtistCollectionViewCell.swift
+//  AlbumCollectionViewCell.swift
 //  TidalTechAssignment
 //
-//  Created by Sofia Knezevic on 2017-10-09.
+//  Created by Sofia Knezevic on 2017-10-10.
 //  Copyright © 2017 Sofia Knezevic. All rights reserved.
 //
 
 import UIKit
 
-class ArtistCollectionViewCell: UICollectionViewCell {
+class AlbumCollectionViewCell: UICollectionViewCell {
     
     //MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(containerStackView)
-//        artistNameLabel.translatesAutoresizingMaskIntoConstraints = false
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        artistImageView.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        artistImageView.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         containerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8).isActive = true
         containerStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8).isActive = true
@@ -30,41 +27,50 @@ class ArtistCollectionViewCell: UICollectionViewCell {
     }
     
     //MARK: - Configuration
-    func configureCell(artist:DeezerArtist) {
-        artistNameLabel.text = artist.artistName
-        if let imageURL = URL.init(string: artist.artistImageName), let placeholderImage = UIImage.init(named: "placeholderArtistImage") {
+    func configureCell(album:DeezerAlbum) {
+        albumArtistNameLabel.text = album.albumArtistName
+        albumNameLabel.text = album.albumName
+        if let imageURL = URL.init(string: album.albumImageName) {
             
-            artistImageView.setImageWith(URLRequest.init(url: imageURL), placeholderImage: placeholderImage, success: { (request:URLRequest, response:HTTPURLResponse?, image:UIImage) in
+            albumImageView.setImageWith(URLRequest.init(url: imageURL), placeholderImage: nil, success: { (request:URLRequest, response:HTTPURLResponse?, image:UIImage) in
                 //do I need to make this a weak self pointer?
-                self.artistImageView.image = image
+                self.albumImageView.image = image
             }, failure: { (request:URLRequest, response:HTTPURLResponse?, error:Error) in
                 
             })
         }
     }
     
+    
     //MARK: - Lazy Initializer Variables -
     //MARK: - Label
-    private lazy var artistNameLabel:UILabel = {
-        let artistNameLabel = UILabel()
-        artistNameLabel.textColor = .white
-        artistNameLabel.font = UIFont.systemFont(ofSize: 20)
-        return artistNameLabel
+    private lazy var albumArtistNameLabel:UILabel = {
+        let albumArtistNameLabel = UILabel()
+        albumArtistNameLabel.textColor = .white
+        albumArtistNameLabel.font = UIFont.systemFont(ofSize: 20)
+        return albumArtistNameLabel
+    }()
+    private lazy var albumNameLabel:UILabel = {
+        let albumNameLabel = UILabel()
+        albumNameLabel.textColor = .white
+        albumNameLabel.font = UIFont.systemFont(ofSize: 20)
+        return albumNameLabel
     }()
     //MARK: - ImageView
-    private lazy var artistImageView:UIImageView = {
-        let artistImageView = UIImageView()
-        artistImageView.contentMode = .scaleAspectFill
-        artistImageView.clipsToBounds = true
-        return artistImageView
+    private lazy var albumImageView:UIImageView = {
+        let albumImageView = UIImageView()
+        albumImageView.contentMode = .scaleAspectFill
+        albumImageView.clipsToBounds = true
+        return albumImageView
     }()
     //MARK: - Container StackView
     private lazy var containerStackView:UIStackView = {
-        let containerStackView = UIStackView(arrangedSubviews: [self.artistImageView, self.artistNameLabel])
-        containerStackView.axis = .horizontal
+        let containerStackView = UIStackView(arrangedSubviews: [self.albumImageView, self.albumNameLabel, self.albumArtistNameLabel])
+        containerStackView.axis = .vertical
         containerStackView.alignment = .fill
         containerStackView.distribution = .fillProportionally
         containerStackView.spacing = 5
         return containerStackView
     }()
+    
 }

@@ -89,7 +89,7 @@ class SearchArtistsViewController: UIViewController {
         artistSectionImageView.image = UIImage.init(named: "microphone")
         
         searchIconImageView.translatesAutoresizingMaskIntoConstraints = false
-        searchIconImageView.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        searchIconImageView.widthAnchor.constraint(equalToConstant: 15).isActive = true
         searchIconImageView.heightAnchor.constraint(equalToConstant: 15).isActive = true
         searchIconImageView.centerXAnchor.constraint(equalTo: searchIconContainerView.centerXAnchor).isActive = true
         searchIconImageView.centerYAnchor.constraint(equalTo: searchIconContainerView.centerYAnchor).isActive = true
@@ -227,8 +227,19 @@ class SearchArtistsViewController: UIViewController {
 //MARK: - UICollectionView Delegate & DataSource
 extension SearchArtistsViewController:UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let albumsViewController = ArtistAlbumsViewController()
-        present(albumsViewController, animated: true, completion: nil)
+        var albumsArray = [DeezerAlbum]()
+        let group = DispatchGroup()
+        group.enter()
+        DeezerManager.retrieveArtistAlbums(artist: artistArray[indexPath.item]) { (albums:[DeezerAlbum]?, error:Error?) in
+            if let arrayOfAlbums = albums {
+                albumsArray = arrayOfAlbums
+            }
+            group.leave()
+        }
+        group.notify(queue: DispatchQueue.main) { 
+            let albumsViewController = ArtistAlbumsViewController.init(albumsArray: albumsArray, albumArtistName: self.artistArray[indexPath.item].artistName)
+            self.present(albumsViewController, animated: true, completion: nil)
+        }
     }
 }
 extension SearchArtistsViewController:UICollectionViewDataSource {
