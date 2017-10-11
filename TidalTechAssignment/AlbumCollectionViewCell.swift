@@ -33,11 +33,12 @@ class AlbumCollectionViewCell: UICollectionViewCell {
         if let imageURL = URL.init(string: album.albumImageName) {
             
             albumImageView.setImageWith(URLRequest.init(url: imageURL), placeholderImage: nil, success: { (request:URLRequest, response:HTTPURLResponse?, image:UIImage) in
-                //do I need to make this a weak self pointer?
                 self.albumImageView.image = image
             }, failure: { (request:URLRequest, response:HTTPURLResponse?, error:Error) in
-                
+                self.albumImageView.image = UIImage.init(named: "noImage")
             })
+        } else {
+            albumImageView.image = UIImage.init(named: "albumPlaceHolder")
         }
     }
     
@@ -59,7 +60,7 @@ class AlbumCollectionViewCell: UICollectionViewCell {
     //MARK: - ImageView
     lazy var albumImageView:UIImageView = {
         let albumImageView = UIImageView()
-        albumImageView.contentMode = .scaleAspectFill
+        albumImageView.contentMode = .scaleAspectFit
         albumImageView.clipsToBounds = true
         return albumImageView
     }()

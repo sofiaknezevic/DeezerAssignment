@@ -15,7 +15,7 @@ class ArtistCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         contentView.addSubview(containerStackView)
         contentView.backgroundColor = UIColor.init(colorLiteralRed: (35/251), green: (35/251), blue: (35/251), alpha: 1)
-//        artistNameLabel.translatesAutoresizingMaskIntoConstraints = false
+
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
         
         artistImageView.widthAnchor.constraint(equalToConstant: 80).isActive = true

@@ -67,7 +67,7 @@ class DeezerManager: NSObject {
                     
                     for deezerAlbumDict in albumDictArray {
                         let deezerAlbumName = deezerAlbumDict.object(forKey: "title") as! String
-                        let deezerAlbumImagename = deezerAlbumDict.object(forKey: "cover_big") as? String
+                        let deezerAlbumImagename = deezerAlbumDict.object(forKey: "cover_xl") as? String
                         let deezerAlbumID = deezerAlbumDict.object(forKey: "id") as! NSNumber
                         let newAlbum = DeezerAlbum.init(albumArtistName: artist.artistName, albumImageName: deezerAlbumImagename, albumName: deezerAlbumName, albumID: deezerAlbumID)
                         albumArray.append(newAlbum)
