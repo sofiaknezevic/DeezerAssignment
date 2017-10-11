@@ -13,18 +13,10 @@ class TrackCollectionViewCell: UICollectionViewCell {
     //MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         contentView.backgroundColor = UIColor.init(colorLiteralRed: (35/251), green: (35/251), blue: (35/251), alpha: 1)
         contentView.addSubview(containerStackView)
-        containerStackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        containerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8).isActive = true
-        containerStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8).isActive = true
-        containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8).isActive = true
-        containerStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8).isActive = true
-        
-        trackNumberLabel.translatesAutoresizingMaskIntoConstraints = false
-        trackNumberLabel.widthAnchor.constraint(equalToConstant: 15).isActive = true
-        trackDurationLabel.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        setConstraints()
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -36,6 +28,15 @@ class TrackCollectionViewCell: UICollectionViewCell {
         trackArtistNameLabel.text = track.trackArtistName
         trackDurationLabel.text = formatter.string(from: track.trackDuration)
         trackNumberLabel.text = String.init(format: "%@.", track.trackPosition)
+    }
+    private func setConstraints() {
+        Utilities.constrainLeadingAndTrailing(childView: containerStackView, parentView: contentView, constant: 8)
+        containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        containerStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        
+        //hot fix for now... didn't have time to look at this thoroughly
+        trackNumberLabel.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        trackDurationLabel.widthAnchor.constraint(equalToConstant: 30).isActive = true
     }
     //MARK: - Lazy Initializer Variables
     //MARK: - Date Formatter

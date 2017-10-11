@@ -10,13 +10,14 @@ import UIKit
 
 class TopBarView: UIView {
     
-    let moreMenuButton = UIButton()
+    private let moreMenuButton = UIButton()
     let closeButton = UIButton()
-    let searchIconImageView = UIImageView()
-    let searchIconContainerView = UIView()
     
-    let topLabel = UILabel()
-    let bottomLabel = UILabel()
+    private let searchIconImageView = UIImageView()
+    private let searchIconContainerView = UIView()
+    
+    private let topLabel = UILabel()
+    private let bottomLabel = UILabel()
     
     //MARK: - Initializers
     override init(frame: CGRect) {
@@ -25,25 +26,13 @@ class TopBarView: UIView {
         backgroundColor = UIColor.init(colorLiteralRed: (28/251), green: (28/251), blue: (28/251), alpha: 1)
         
         topLabel.textColor = .white
-        bottomLabel.textColor = .white
+        bottomLabel.textColor = .lightGray
         
-        moreMenuButton.setImage(UIImage.init(named: "moreMenuIcon"), for: .normal)
-        closeButton.setImage(UIImage.init(named: "clearIcon"), for: .normal)
+        topLabel.font = UIFont.boldSystemFont(ofSize: 10)
+        bottomLabel.font = UIFont.systemFont(ofSize: 8)
         
-        searchIconImageView.image = UIImage.init(named: "searchIcon")
         searchIconContainerView.addSubview(searchIconImageView)
-        moreMenuButton.constrainIconButton(iconButton: moreMenuButton)
-        closeButton.constrainIconButton(iconButton: closeButton)
-        searchIconImageView.constrainIconImageView(imageView: searchIconImageView, to: searchIconContainerView)
-        
         addSubview(containerStackView)
-        
-        containerStackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        containerStackView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        containerStackView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        containerStackView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        containerStackView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -54,7 +43,22 @@ class TopBarView: UIView {
         topLabel.text = topLabelText
         bottomLabel.text = bottomLabelText
     }
-    
+    private func setSubviewImages() {
+        moreMenuButton.setImage(UIImage.init(named: StringConstants.moreMenuIconImageName), for: .normal)
+        closeButton.setImage(UIImage.init(named: StringConstants.clearIconImageName), for: .normal)
+        searchIconImageView.image = UIImage.init(named: StringConstants.searchIconImageName)
+    }
+    private func setConstraints() {
+        //buttons
+        moreMenuButton.constrainIconButton(iconButton: moreMenuButton)
+        closeButton.constrainIconButton(iconButton: closeButton)
+        
+        //searchiconimageview
+        searchIconImageView.constrainIconImageView(imageView: searchIconImageView, to: searchIconContainerView)
+        
+        //containerstackview
+        Utilities.constrainToAllSides(childView: containerStackView, parentView: self)
+    }
     //MARK: - Lazy Initializer Variables
     //MARK: - Stack View
     private lazy var containerStackView:UIStackView = {
