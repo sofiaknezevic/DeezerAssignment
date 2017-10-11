@@ -20,16 +20,40 @@ class TopBarView: UIView {
     //MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        topLabel.textColor = .white
+        bottomLabel.textColor = .white
+        
+        moreMenuButton.setImage(UIImage.init(named: "moreMenuIcon"), for: .normal)
+        searchIconImageView.image = UIImage.init(named: "searchIcon")
+        searchIconContainerView.addSubview(searchIconImageView)
+        moreMenuButton.constrainIconButton(iconButton: moreMenuButton)
+        
+        searchIconImageView.constrainIconImageView(imageView: searchIconImageView, to: searchIconContainerView)
+        
         addSubview(containerStackView)
+        
+        containerStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        containerStackView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        containerStackView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        containerStackView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        containerStackView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Configuration
+    func configureView(topLabelText:String, bottomLabelText:String) {
+        topLabel.text = topLabelText
+        bottomLabel.text = bottomLabelText
+    }
+    
     //MARK: - Lazy Initializer Variables
     //MARK: - Stack View
     private lazy var containerStackView:UIStackView = {
-        let containerStackView = UIStackView()
+        let containerStackView = UIStackView(arrangedSubviews: [self.moreMenuButton, self.labelStackView, self.searchIconContainerView])
         containerStackView.axis = .horizontal
         containerStackView.alignment = .fill
         containerStackView.distribution = .fillProportionally

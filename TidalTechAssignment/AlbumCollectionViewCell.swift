@@ -14,11 +14,8 @@ class AlbumCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(containerStackView)
-//        albumNameLabel.translatesAutoresizingMaskIntoConstraints = false
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
         
-//        albumImageView.widthAnchor.constraint(equalToConstant: 80).isActive = true
-//        albumImageView.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         containerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8).isActive = true
         containerStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8).isActive = true
