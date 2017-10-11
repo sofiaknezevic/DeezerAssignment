@@ -12,17 +12,13 @@ class SearchArtistsViewController: UIViewController {
     
     var artistArray = [DeezerArtist]()
     
-    let searchBarContainerView = UIView()
-    
-    let artistSectionContainerView = UIView()
-    let artistImageContainerView = UIView()
     let artistSectionImageView = UIImageView()
     let artistSectionLabel = UILabel()
     
     let searchIconImageView = UIImageView()
-    let searchIconContainerView = UIView()
-    
+
     let clearButton = UIButton()
+    let moreButton = UIButton()
     
     //MARK: - View LifeCycle
     override func viewDidLoad() {
@@ -32,31 +28,33 @@ class SearchArtistsViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-//    override func viewDidLayoutSubviews() {
-//        let border = CALayer()
-//        let width = CGFloat(1.0)
-//        border.borderColor = UIColor.white.cgColor
-//        border.frame = CGRect(x: 100, y: searchBarContainerView.frame.size.height - width, width:  searchBarContainerView.frame.size.width-150, height: searchBarContainerView.frame.size.height)
-//        
-//        border.borderWidth = width
-//        searchBarContainerView.layer.addSublayer(border)
-//        searchBarContainerView.layer.masksToBounds = true
-//    }
 
     //MARK: - Setup & Configuration
     private func setUpView() {
-        searchIconImageView.image = UIImage.init(named: "searchIcon")
-        artistImageContainerView.addSubview(artistSectionImageView)
-        searchIconContainerView.addSubview(searchIconImageView)
-        artistSectionContainerView.addSubview(artistSectionStackView)
-        searchBarContainerView.addSubview(searchBarStackView)
-        searchBarContainerView.backgroundColor = UIColor.init(colorLiteralRed: (28/251), green: (28/251), blue: (28/251), alpha: 1)
-        artistSectionContainerView.backgroundColor = UIColor.init(colorLiteralRed: (35/251), green: (35/251), blue: (35/251), alpha: 1)
+        
         view.addSubview(searchBarContainerView)
         view.addSubview(artistSectionContainerView)
         view.addSubview(artistCollectionView)
         view.backgroundColor = .black
         
+        setSubviewImages()
+        setSubviewProperties()
+        setConstraints()
+    }
+    func setSubviewImages() {
+        artistSectionImageView.image = UIImage.init(named: StringConstants.microphoneImageName)
+        searchIconImageView.image = UIImage.init(named: StringConstants.searchIconImageName)
+        clearButton.setImage(UIImage.init(named: StringConstants.clearIconImageName), for: .normal)
+        moreButton.setImage(UIImage.init(named: StringConstants.moreMenuIconImageName), for: .normal)
+    }
+    func setSubviewProperties() {
+        artistSectionLabel.text = StringConstants.artistSectionText
+        artistSectionLabel.textColor = .white
+        
+        clearButton.addTarget(self, action: #selector(clearSearchTextField), for: .touchUpInside)
+    }
+    func setConstraints() {
+        searchIconImageView.constrainIconImageView(imageView: searchIconImageView, to: searchIconContainerView)
         Utilities.constrainLeadingAndTrailing(childView: searchBarContainerView, parentView: view, constant: 0)
         searchBarContainerView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
         searchBarContainerView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.15).isActive = true
@@ -68,28 +66,14 @@ class SearchArtistsViewController: UIViewController {
         
         artistSectionImageView.constrainIconImageView(imageView: artistSectionImageView, to: artistImageContainerView)
         Utilities.constrainToAllSides(childView: artistSectionStackView, parentView: artistSectionContainerView)
-
-        artistSectionImageView.image = UIImage.init(named: "microphone")
-        
-        searchIconImageView.constrainIconImageView(imageView: searchIconImageView, to: searchIconContainerView)
-        
-        artistSectionLabel.text = "ARTISTS"
-        artistSectionLabel.textColor = .white
-
-        clearButton.setImage(UIImage.init(named: "clearIcon"), for: .normal)
-        clearButton.addTarget(self, action: #selector(clearSearchTextField), for: .touchUpInside)
-        
         moreButton.constrainIconButton(iconButton: moreButton)
         clearButton.constrainIconButton(iconButton: clearButton)
-        searchBarStackView.translatesAutoresizingMaskIntoConstraints = false
+        Utilities.constrainLeadingAndTrailing(childView: searchBarStackView, parentView: searchBarContainerView, constant: 8)
         searchBarStackView.topAnchor.constraint(equalTo: searchBarContainerView.topAnchor, constant: 8).isActive = true
-        searchBarStackView.leadingAnchor.constraint(equalTo: searchBarContainerView.leadingAnchor, constant: 8).isActive = true
-        searchBarStackView.trailingAnchor.constraint(equalTo: searchBarContainerView.trailingAnchor, constant: -8).isActive = true
         searchBarStackView.bottomAnchor.constraint(equalTo: searchBarContainerView.bottomAnchor).isActive = true
         
+        Utilities.constrainLeadingAndTrailing(childView: artistCollectionView, parentView: view, constant: 0)
         artistCollectionView.topAnchor.constraint(equalTo: artistSectionContainerView.bottomAnchor, constant: 5).isActive = true
-        artistCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        artistCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         artistCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -156,12 +140,6 @@ class SearchArtistsViewController: UIViewController {
         artistCollectionView.register(ArtistCollectionViewCell.self, forCellWithReuseIdentifier: "artistCollectionViewCell")
         return artistCollectionView
     }()
-    //MARK: - Buttons
-    private lazy var moreButton:UIButton = {
-        let moreButton = UIButton(type: UIButtonType.custom)
-        moreButton.setImage(UIImage.init(named: "moreMenuIcon"), for: .normal)
-        return moreButton
-    }()
     //MARK: - Text Field
     private lazy var searchTextField:SearchTextField = {
         let searchTextField = SearchTextField()
@@ -169,6 +147,29 @@ class SearchArtistsViewController: UIViewController {
         searchTextField.textColor = .white
         searchTextField.addTarget(self, action: #selector(searchAndDisplayArtists), for: UIControlEvents.editingChanged)
         return searchTextField
+    }()
+    //MARK: - Container Views
+    private lazy var artistImageContainerView:UIView = {
+        let artistImageContainerView = UIView()
+        artistImageContainerView.addSubview(self.artistSectionImageView)
+        return artistImageContainerView
+    }()
+    private lazy var searchIconContainerView:UIView = {
+        let searchIconContainerView = UIView()
+        searchIconContainerView.addSubview(self.searchIconImageView)
+        return searchIconContainerView
+    }()
+    private lazy var searchBarContainerView:UIView = {
+        let searchBarContainerView = UIView()
+        searchBarContainerView.addSubview(self.searchBarStackView)
+        searchBarContainerView.backgroundColor = UIColor.init(colorLiteralRed: (28/251), green: (28/251), blue: (28/251), alpha: 1)
+        return searchBarContainerView
+    }()
+    private lazy var artistSectionContainerView:UIView = {
+        let artistSectionContainerView = UIView()
+        artistSectionContainerView.addSubview(self.artistSectionStackView)
+        artistSectionContainerView.backgroundColor = UIColor.init(colorLiteralRed: (35/251), green: (35/251), blue: (35/251), alpha: 1)
+        return artistSectionContainerView
     }()
     //MARK: - StackViews
     private lazy var searchBarStackView:UIStackView = {

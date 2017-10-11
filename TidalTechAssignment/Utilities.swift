@@ -25,6 +25,27 @@ class Utilities: NSObject {
     }
 }
 
+//MARK: - Structs -
+//MARK: - Sizes
+struct SizeConstants {
+    
+    private init() {}
+    
+    static let iconImageHeight = CGFloat.init(15)
+}
+//MARK: - Strings
+struct StringConstants {
+    
+    private init() {}
+    
+    static let artistSectionText = "ARTISTS"
+    
+    static let microphoneImageName = "microphone"
+    static let clearIconImageName = "clearIcon"
+    static let moreMenuIconImageName = "moreMenuIcon"
+    static let searchIconImageName = "searchIcon"
+}
+
 //MARK: - Extensions - 
 //MARK: - String
 extension String {
@@ -47,7 +68,7 @@ extension UIButton {
             iconButtonImageView.contentMode = .scaleAspectFit
             iconButtonImageView.translatesAutoresizingMaskIntoConstraints = false
             
-            iconButtonImageView.heightAnchor.constraint(equalToConstant: 15).isActive = true
+            iconButtonImageView.heightAnchor.constraint(equalToConstant: SizeConstants.iconImageHeight).isActive = true
             iconButtonImageView.widthAnchor.constraint(equalTo: iconButtonImageView.heightAnchor).isActive = true
         }
         iconButton.translatesAutoresizingMaskIntoConstraints = false
