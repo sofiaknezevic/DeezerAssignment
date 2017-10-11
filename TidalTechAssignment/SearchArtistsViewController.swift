@@ -15,7 +15,6 @@ class SearchArtistsViewController: UIViewController {
     //MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setNeedsStatusBarAppearanceUpdate()
         setUpView()
     }
     override func didReceiveMemoryWarning() {
@@ -107,7 +106,7 @@ class SearchArtistsViewController: UIViewController {
         artistCollectionView.translatesAutoresizingMaskIntoConstraints = false
         artistCollectionView.delegate = self
         artistCollectionView.dataSource = self
-        artistCollectionView.backgroundColor = .clear
+        artistCollectionView.backgroundColor = UIColor.init(colorLiteralRed: (35/251), green: (35/251), blue: (35/251), alpha: 1)
         artistCollectionView.allowsSelection = true
         artistCollectionView.register(ArtistCollectionViewCell.self, forCellWithReuseIdentifier: "artistCollectionViewCell")
         return artistCollectionView
@@ -139,7 +138,10 @@ class SearchArtistsViewController: UIViewController {
 //MARK: - Extensions - 
 //MARK: - UICollectionView Delegate & DataSource
 extension SearchArtistsViewController:UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let albumsViewController = ArtistAlbumsViewController()
+        present(albumsViewController, animated: true, completion: nil)
+    }
 }
 extension SearchArtistsViewController:UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -159,12 +161,11 @@ extension SearchArtistsViewController:UICollectionViewDataSource {
 //MARK: - UICollectionViewFlowLayout Delegate
 extension SearchArtistsViewController:UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.bounds.width, height: 50)
+        return CGSize(width: collectionView.bounds.width, height: 66)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 5
     }
 }
 
-//MARK: - TextField Delegate
-//extension SearchArtistsViewController:UITextFieldDelegate {
-//    
-//}
 

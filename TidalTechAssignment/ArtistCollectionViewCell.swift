@@ -17,7 +17,8 @@ class ArtistCollectionViewCell: UICollectionViewCell {
         artistNameLabel.translatesAutoresizingMaskIntoConstraints = false
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        artistImageView.widthAnchor.constraint(equalTo: artistImageView.heightAnchor, multiplier: 2).isActive = true
+        artistImageView.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        artistImageView.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         containerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8).isActive = true
         containerStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8).isActive = true
@@ -54,6 +55,7 @@ class ArtistCollectionViewCell: UICollectionViewCell {
     private lazy var artistImageView:UIImageView = {
         let artistImageView = UIImageView()
         artistImageView.contentMode = .scaleAspectFill
+        artistImageView.clipsToBounds = true
         return artistImageView
     }()
     //MARK: - Container StackView
