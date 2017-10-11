@@ -11,6 +11,7 @@ import UIKit
 class TopBarView: UIView {
     
     let moreMenuButton = UIButton()
+    let closeButton = UIButton()
     let searchIconImageView = UIImageView()
     let searchIconContainerView = UIView()
     
@@ -27,10 +28,11 @@ class TopBarView: UIView {
         bottomLabel.textColor = .white
         
         moreMenuButton.setImage(UIImage.init(named: "moreMenuIcon"), for: .normal)
+        closeButton.setImage(UIImage.init(named: "clearIcon"), for: .normal)
         searchIconImageView.image = UIImage.init(named: "searchIcon")
         searchIconContainerView.addSubview(searchIconImageView)
         moreMenuButton.constrainIconButton(iconButton: moreMenuButton)
-        
+        closeButton.constrainIconButton(iconButton: closeButton)
         searchIconImageView.constrainIconImageView(imageView: searchIconImageView, to: searchIconContainerView)
         
         addSubview(containerStackView)
@@ -55,7 +57,7 @@ class TopBarView: UIView {
     //MARK: - Lazy Initializer Variables
     //MARK: - Stack View
     private lazy var containerStackView:UIStackView = {
-        let containerStackView = UIStackView(arrangedSubviews: [self.moreMenuButton, self.labelStackView, self.searchIconContainerView])
+        let containerStackView = UIStackView(arrangedSubviews: [self.closeButton, self.moreMenuButton, self.labelStackView, self.searchIconContainerView])
         containerStackView.axis = .horizontal
         containerStackView.alignment = .fill
         containerStackView.distribution = .fillProportionally

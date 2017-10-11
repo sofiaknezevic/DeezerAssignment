@@ -20,6 +20,7 @@ class ArtistAlbumsViewController: UIViewController {
         view.backgroundColor = .black
         
         albumTopBarView.translatesAutoresizingMaskIntoConstraints = false
+        albumTopBarView.closeButton.addTarget(self, action: #selector(dismissSelf), for: .touchUpInside)
         view.addSubview(albumTopBarView)
         view.addSubview(albumCollectionView)
         
@@ -78,6 +79,10 @@ extension ArtistAlbumsViewController:UICollectionViewDelegate {
             if let tracks = trackArray {
                 albumTracks = tracks
             }
+            group.leave()
+        }
+        group.notify(queue: DispatchQueue.main) { 
+            
         }
     }
 }

@@ -57,3 +57,10 @@ extension UIImageView {
         imageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
     }
 }
+
+//MARK: - UIViewController
+extension UIViewController {
+    func dismissSelf () {
+        dismiss(animated: true, completion: nil)
+    }
+}
