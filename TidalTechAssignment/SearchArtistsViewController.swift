@@ -70,7 +70,9 @@ class SearchArtistsViewController: UIViewController {
         artistSectionImageView.constrainIconImageView(imageView: artistSectionImageView, to: artistImageContainerView)
         
         //artistsectionstackview
-        Utilities.constrainToAllSides(childView: artistSectionStackView, parentView: artistSectionContainerView)
+        Utilities.constrainLeadingAndTrailing(childView: artistSectionStackView, parentView: artistSectionContainerView, constant: 10)
+        artistSectionStackView.topAnchor.constraint(equalTo: artistSectionContainerView.topAnchor).isActive = true
+        artistSectionStackView.bottomAnchor.constraint(equalTo: artistSectionContainerView.bottomAnchor).isActive = true
         
         //buttons
         moreButton.constrainIconButton(iconButton: moreButton)
@@ -83,7 +85,7 @@ class SearchArtistsViewController: UIViewController {
         
         //artistcollectionview
         Utilities.constrainLeadingAndTrailing(childView: artistCollectionView, parentView: view, constant: 0)
-        artistCollectionView.topAnchor.constraint(equalTo: artistSectionContainerView.bottomAnchor, constant: SizeConstants.marginPadding).isActive = true
+        artistCollectionView.topAnchor.constraint(equalTo: artistSectionContainerView.bottomAnchor, constant: 2).isActive = true
         artistCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -104,7 +106,7 @@ class SearchArtistsViewController: UIViewController {
         if (searchTextField.text != nil) && searchTextField.text != "" {
             DeezerManager.searchForArtist(artists: artistArray, searchString: searchTextField.text!) { (artists:[DeezerArtist]?, error:Error?) in
                 if ((error) != nil) {
-                    //Show error hud
+                    SVProgressHUD.showError(withStatus: StringConstants.fetchRequestErrorTitle)
                 } else {
                     var deezerArtists = artists
                     for artist in self.filterArtistArray(artistArray: deezerArtists) {
@@ -121,16 +123,19 @@ class SearchArtistsViewController: UIViewController {
             self.artistCollectionView.reloadData()
         }
     }
-    func filterArtistArray(artistArray:[DeezerArtist]?) -> [DeezerArtist] {
+    private func filterArtistArray(artistArray:[DeezerArtist]?) -> [DeezerArtist] {
         var containerArray = [DeezerArtist]()
         containerArray.removeAll()
+        
         if let searchText = searchTextField.text, let artists = artistArray {
-            let beginsWithPredicate = NSPredicate.init(format: "artistName beginsWith [cd] %@", searchText)
-            let containsPredicate = NSPredicate.init(format: "not (artistName beginsWith [cd] %@)", searchText)
-            let filteredArray = (artists as NSArray).filtered(using: beginsWithPredicate) as! [DeezerArtist]
-            let containsArray = (artists as NSArray).filtered(using: containsPredicate) as! [DeezerArtist]
             
-            containerArray = filteredArray + containsArray
+            let beginsWithPredicate = NSPredicate.init(format: "artistName beginsWith [cd] %@", searchText)
+            let notBeginsWithPredicate = NSPredicate.init(format: "not (artistName beginsWith [cd] %@)", searchText)
+            
+            let beginsWithArray = (artists as NSArray).filtered(using: beginsWithPredicate) as! [DeezerArtist]
+            let notBeginsWithArray = (artists as NSArray).filtered(using: notBeginsWithPredicate) as! [DeezerArtist]
+            
+            containerArray = beginsWithArray + notBeginsWithArray
         }
         return containerArray
     }
@@ -143,11 +148,14 @@ class SearchArtistsViewController: UIViewController {
     lazy var artistCollectionView:UICollectionView = {
         let artistCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         artistCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        
         artistCollectionView.delegate = self
         artistCollectionView.dataSource = self
-        artistCollectionView.backgroundColor = UIColor.init(colorLiteralRed: (35/251), green: (35/251), blue: (35/251), alpha: 1)
+        
+        artistCollectionView.backgroundColor = UIColor.init(colorLiteralRed: (28/251), green: (28/251), blue: (28/251), alpha: 1)
         artistCollectionView.allowsSelection = true
-        artistCollectionView.register(ArtistCollectionViewCell.self, forCellWithReuseIdentifier: "artistCollectionViewCell")
+        
+        artistCollectionView.register(ArtistCollectionViewCell.self, forCellWithReuseIdentifier: StringConstants.artistCellIdentifier)
         return artistCollectionView
     }()
     //MARK: - Text Field
@@ -205,15 +213,23 @@ class SearchArtistsViewController: UIViewController {
 extension SearchArtistsViewController:UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         var albumsArray = [DeezerAlbum]()
-        let group = DispatchGroup()
-        group.enter()
+        
+        let retrieveAlbumsGroup = DispatchGroup()
+        retrieveAlbumsGroup.enter()
+        
         DeezerManager.retrieveArtistAlbums(artist: artistArray[indexPath.item]) { (albums:[DeezerAlbum]?, error:Error?) in
-            if let arrayOfAlbums = albums {
-                albumsArray = arrayOfAlbums
+            if ((error) != nil) {
+                SVProgressHUD.showError(withStatus: StringConstants.fetchRequestErrorTitle)
+            } else {
+                if let arrayOfAlbums = albums {
+                    albumsArray = arrayOfAlbums
+                }
             }
-            group.leave()
+            retrieveAlbumsGroup.leave()
         }
-        group.notify(queue: DispatchQueue.main) { 
+        
+        retrieveAlbumsGroup.notify(queue: DispatchQueue.main) {
+            
             let albumsViewController = ArtistAlbumsViewController.init(albumsArray: albumsArray, albumArtistName: self.artistArray[indexPath.item].artistName)
             self.present(albumsViewController, animated: true, completion: nil)
         }
@@ -224,11 +240,10 @@ extension SearchArtistsViewController:UICollectionViewDataSource {
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.artistArray.count // just for testing purposes right now
+        return self.artistArray.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        //just testing right now
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "artistCollectionViewCell", for: indexPath) as! ArtistCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StringConstants.artistCellIdentifier, for: indexPath) as! ArtistCollectionViewCell
         cell.configureCell(artist: self.artistArray[indexPath.item])
         return cell
     }
@@ -237,10 +252,13 @@ extension SearchArtistsViewController:UICollectionViewDataSource {
 //MARK: - UICollectionViewFlowLayout Delegate
 extension SearchArtistsViewController:UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.bounds.width, height: 66)
+        return CGSize(width: collectionView.bounds.width, height: SizeConstants.artistCellHeight)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 5
+        return 0
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 1
     }
 }
 
