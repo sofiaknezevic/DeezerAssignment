@@ -10,10 +10,17 @@ import UIKit
 
 class ArtistAlbumsViewController: UIViewController {
 
+    var albumsArray = [DeezerAlbum]()
+    
     //MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.addSubview(albumCollectionView)
         
+        albumCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        albumCollectionView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
+        albumCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        albumCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -22,10 +29,51 @@ class ArtistAlbumsViewController: UIViewController {
     //MARK: - Initializers
     init(albumsArray:[DeezerAlbum]) {
         super.init(nibName: nil, bundle: nil)
-        
+        self.albumsArray = albumsArray
     }
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    //MARK: - Lazy Initializer Variables
+    //MARK: - Album CollectionView
+    lazy var albumCollectionView:UICollectionView = {
+        let albumCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        albumCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        albumCollectionView.delegate = self
+        albumCollectionView.dataSource = self
+        albumCollectionView.backgroundColor = UIColor.init(colorLiteralRed: (35/251), green: (35/251), blue: (35/251), alpha: 1)
+        albumCollectionView.allowsSelection = true
+        albumCollectionView.register(AlbumCollectionViewCell.self, forCellWithReuseIdentifier: "albumCollectionViewCell")
+        return albumCollectionView
+    }()
+}
+
+//MARK: - Extensions
+//MARK: - UICollectionView Delegate & DataSource
+extension ArtistAlbumsViewController:UICollectionViewDelegate {
+    
+}
+extension ArtistAlbumsViewController:UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return albumsArray.count
+    }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "albumCollectionViewCell", for: indexPath) as! AlbumCollectionViewCell
+        cell.configureCell(album: albumsArray[indexPath.item])
+        return cell
+    }
+}
+
+//MARK: - UICollectionView Flow Layout
+extension ArtistAlbumsViewController:UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: (collectionView.bounds.width/2), height: 250)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
 }
