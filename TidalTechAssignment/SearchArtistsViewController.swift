@@ -29,15 +29,15 @@ class SearchArtistsViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    override func viewWillLayoutSubviews() {
+    override func viewDidLayoutSubviews() {
         let border = CALayer()
         let width = CGFloat(1.0)
         border.borderColor = UIColor.white.cgColor
-        border.frame = CGRect(x: 0, y: searchTextField.frame.size.height - width, width:  searchTextField.frame.size.width, height: searchTextField.frame.size.height)
+        border.frame = CGRect(x: 0, y: searchBarContainerView.frame.size.height - width, width:  searchBarContainerView.frame.size.width, height: searchBarContainerView.frame.size.height)
         
         border.borderWidth = width
-        searchTextField.layer.addSublayer(border)
-        searchTextField.layer.masksToBounds = true
+        searchBarContainerView.layer.addSublayer(border)
+        searchBarContainerView.layer.masksToBounds = true
     }
 
     //MARK: - Setup & Configuration
