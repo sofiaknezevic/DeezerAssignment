@@ -31,8 +31,9 @@ class DeezerManager: NSObject {
                     
                     for deezerArtistDict in artistDictArray {
                         let deezerArtistName = deezerArtistDict.object(forKey: "name") as! String
-                        let deezerImageName = deezerArtistDict.object(forKey: "picture") as! String
-                        let newArtist = DeezerArtist.init(artistName: deezerArtistName, imageName: deezerImageName)
+                        let deezerArtistImageName = deezerArtistDict.object(forKey: "picture") as! String
+                        let deezerArtistID = deezerArtistDict.object(forKey: "id") as! String
+                        let newArtist = DeezerArtist.init(artistName: deezerArtistName, artistImageName: deezerArtistImageName, artistID: deezerArtistID)
                         
                         if !(artistArray.contains(newArtist)) {
                             artistArray.append(newArtist)

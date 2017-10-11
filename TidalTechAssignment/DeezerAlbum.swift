@@ -10,4 +10,16 @@ import UIKit
 
 class DeezerAlbum: NSObject {
 
+    var albumArtistName = String()
+    var albumImageName = String()
+    var albumName = String()
+    var albumID = String()
+    
+    init(albumArtistName:String, albumImageName:String, albumName:String, albumID:String) {
+        self.albumArtistName = albumArtistName
+        self.albumImageName = albumImageName
+        self.albumName = albumName
+        self.albumID = albumID
+    }
+    
 }

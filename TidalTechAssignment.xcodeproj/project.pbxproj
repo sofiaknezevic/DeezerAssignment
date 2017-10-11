@@ -84,9 +84,9 @@
 		5D3125791F894E2300E28FF2 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				5D7BC6A51F8C666D005A2790 /* TidalTechAssignment-Bridging-Header.h */,
 				5DF97F4A1F85486500EA3948 /* Assets.xcassets */,
 				5DF97F4F1F85486500EA3948 /* Info.plist */,
+				5D7BC6A51F8C666D005A2790 /* TidalTechAssignment-Bridging-Header.h */,
 			);
 			name = Assets;
 			sourceTree = "<group>";

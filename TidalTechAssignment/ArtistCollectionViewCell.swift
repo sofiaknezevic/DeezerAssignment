@@ -32,10 +32,10 @@ class ArtistCollectionViewCell: UICollectionViewCell {
     //MARK: - Configuration
     func configureCell(artist:DeezerArtist) {
         artistNameLabel.text = artist.artistName
-        if let imageURL = URL.init(string: artist.imageName), let placeholderImage = UIImage.init(named: "placeholderArtistImage") {
+        if let imageURL = URL.init(string: artist.artistImageName), let placeholderImage = UIImage.init(named: "placeholderArtistImage") {
             
             artistImageView.setImageWith(URLRequest.init(url: imageURL), placeholderImage: placeholderImage, success: { (request:URLRequest, response:HTTPURLResponse?, image:UIImage) in
-                weak var weakSelf = self
+                //do I need to make this a weak self pointer?
                 self.artistImageView.image = image
             }, failure: { (request:URLRequest, response:HTTPURLResponse?, error:Error) in
                 

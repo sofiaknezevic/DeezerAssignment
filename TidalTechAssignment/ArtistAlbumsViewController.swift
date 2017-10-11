@@ -13,7 +13,7 @@ class ArtistAlbumsViewController: UIViewController {
     //MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -11,11 +11,13 @@ import UIKit
 class DeezerArtist: NSObject {
     
     var artistName = String()
-    var imageName = String()
+    var artistImageName = String()
+    var artistID = String()
     
-    init(artistName:String, imageName:String) {
+    init(artistName:String, artistImageName:String, artistID:String) {
         self.artistName = artistName
-        self.imageName = imageName
+        self.artistImageName = artistImageName
+        self.artistID = artistID
     }
     
 }
