@@ -43,6 +43,7 @@ struct StringConstants {
     
     static let artistCellIdentifier = "artistCollectionViewCell"
     static let albumCellIdentifier = "albumCollectionViewCell"
+    static let trackCellIdentifier = "trackCollectionViewCell"
     
     static let artistSectionText = "ARTISTS"
     static let albumsLabelText = "Albums"

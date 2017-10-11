@@ -147,7 +147,6 @@ class SearchArtistsViewController: UIViewController {
     //MARK: - Artist CollectionView
     lazy var artistCollectionView:UICollectionView = {
         let artistCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        artistCollectionView.translatesAutoresizingMaskIntoConstraints = false
         
         artistCollectionView.delegate = self
         artistCollectionView.dataSource = self

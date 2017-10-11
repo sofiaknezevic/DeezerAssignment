@@ -13,6 +13,7 @@ class TrackCollectionViewCell: UICollectionViewCell {
     //MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
+        contentView.backgroundColor = UIColor.init(colorLiteralRed: (35/251), green: (35/251), blue: (35/251), alpha: 1)
         contentView.addSubview(containerStackView)
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
         

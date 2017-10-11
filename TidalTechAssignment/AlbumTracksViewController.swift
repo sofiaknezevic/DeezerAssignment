@@ -10,7 +10,8 @@ import UIKit
 
 class AlbumTracksViewController: UIViewController {
 
-    let trackTopBarView = TopBarView.init(frame: .zero)
+    private let trackTopBarView = TopBarView.init(frame: .zero)
+    
     var trackArray = [DeezerTrack]()
     var sections = 0
     
@@ -19,28 +20,12 @@ class AlbumTracksViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .black
-        
-        trackTopBarView.translatesAutoresizingMaskIntoConstraints = false
-        trackAlbumImageView.translatesAutoresizingMaskIntoConstraints = false
-        trackTopBarView.closeButton.addTarget(self, action: #selector(dismissSelf), for: .touchUpInside)
+    
         view.addSubview(trackTopBarView)
         view.addSubview(trackAlbumImageView)
         view.addSubview(trackCollectionView)
         
-        trackTopBarView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
-        trackTopBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        trackTopBarView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        trackTopBarView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.15).isActive = true
-        
-        trackAlbumImageView.topAnchor.constraint(equalTo: trackTopBarView.bottomAnchor).isActive = true
-        trackAlbumImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        trackAlbumImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        trackAlbumImageView.heightAnchor.constraint(equalTo: trackAlbumImageView.widthAnchor).isActive = true
-        
-        trackCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        trackCollectionView.topAnchor.constraint(equalTo: trackAlbumImageView.bottomAnchor).isActive = true
-        trackCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        trackCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        setConstraints()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -49,16 +34,37 @@ class AlbumTracksViewController: UIViewController {
     //MARK: - Initializers
     init(trackArray:[DeezerTrack], trackArtistName:String, trackAlbumName:String) {
         super.init(nibName: nil, bundle: nil)
+        
         self.trackArray = trackArray
-        numberOfDiscs()
         trackTopBarView.configureView(topLabelText: trackAlbumName, bottomLabelText: trackArtistName)
+        trackTopBarView.closeButton.addTarget(self, action: #selector(dismissSelf), for: .touchUpInside)
+        
+        numberOfDiscs()
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Setup & Configuration
+    private func setConstraints() {
+        //topbarview
+        Utilities.constrainLeadingAndTrailing(childView: trackTopBarView, parentView: view, constant: 0)
+        trackTopBarView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
+        trackTopBarView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: SizeConstants.barHeightMultipler).isActive = true
+        
+        //trackalbumimageview
+        Utilities.constrainLeadingAndTrailing(childView: trackAlbumImageView, parentView: view, constant: 0)
+        trackAlbumImageView.topAnchor.constraint(equalTo: trackTopBarView.bottomAnchor).isActive = true
+        trackAlbumImageView.heightAnchor.constraint(equalTo: trackAlbumImageView.widthAnchor).isActive = true
+        
+        //trackcollectionview
+        Utilities.constrainLeadingAndTrailing(childView: trackCollectionView, parentView: view, constant: 0)
+        trackCollectionView.topAnchor.constraint(equalTo: trackAlbumImageView.bottomAnchor).isActive = true
+        trackCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    }
+    
     //MARK: - Helpers
-    func numberOfDiscs() {
+    private func numberOfDiscs() {
         for track in trackArray {
             if track.trackPosition.intValue == 1 {
                 sections = sections+1
@@ -68,7 +74,7 @@ class AlbumTracksViewController: UIViewController {
     
     //MARK: - Lazy Initializer Variables
     //MARK: - Album Image View
-    lazy var trackAlbumImageView:UIImageView = {
+    private lazy var trackAlbumImageView:UIImageView = {
         let trackAlbumImageView = UIImageView()
         trackAlbumImageView.contentMode = .scaleAspectFill
         trackAlbumImageView.clipsToBounds = true
@@ -77,12 +83,14 @@ class AlbumTracksViewController: UIViewController {
     //MARK: - Track CollectionView
     lazy var trackCollectionView:UICollectionView = {
         let trackCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        trackCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        
         trackCollectionView.delegate = self
         trackCollectionView.dataSource = self
-        trackCollectionView.backgroundColor = UIColor.init(colorLiteralRed: (35/251), green: (35/251), blue: (35/251), alpha: 1)
+        
+        trackCollectionView.backgroundColor = UIColor.init(colorLiteralRed: (28/251), green: (28/251), blue: (28/251), alpha: 1)
         trackCollectionView.allowsSelection = true
-        trackCollectionView.register(TrackCollectionViewCell.self, forCellWithReuseIdentifier: "trackCollectionViewCell")
+        
+        trackCollectionView.register(TrackCollectionViewCell.self, forCellWithReuseIdentifier: StringConstants.trackCellIdentifier)
         return trackCollectionView
     }()
 }
@@ -100,7 +108,7 @@ extension AlbumTracksViewController:UICollectionViewDataSource {
         return trackArray.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "trackCollectionViewCell", for: indexPath) as! TrackCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StringConstants.trackCellIdentifier, for: indexPath) as! TrackCollectionViewCell
         cell.configureCell(track: trackArray[indexPath.item])
         return cell
     }
@@ -110,5 +118,8 @@ extension AlbumTracksViewController:UICollectionViewDataSource {
 extension AlbumTracksViewController:UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.bounds.width, height: (collectionView.bounds.width)/10)
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 1
     }
 }

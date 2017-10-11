@@ -62,7 +62,6 @@ class ArtistAlbumsViewController: UIViewController {
     //MARK: - Album CollectionView
     lazy var albumCollectionView:UICollectionView = {
         let albumCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        albumCollectionView.translatesAutoresizingMaskIntoConstraints = false
         
         albumCollectionView.delegate = self
         albumCollectionView.dataSource = self
