@@ -48,9 +48,11 @@ extension UIImageView {
     func constrainIconImageView(imageView:UIImageView, to containerView:UIView) {
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.translatesAutoresizingMaskIntoConstraints = false
         
-        imageView.heightAnchor.constraint(equalToConstant: 15).isActive = true
         imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor).isActive = true
+        containerView.heightAnchor.constraint(equalTo: imageView.heightAnchor, multiplier:2).isActive = true
+        containerView.widthAnchor.constraint(equalTo: imageView.widthAnchor, multiplier:2).isActive = true
         imageView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
         imageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
     }
