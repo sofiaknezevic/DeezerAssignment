@@ -116,8 +116,8 @@
 			children = (
 				5D7BC6A11F8C3577005A2790 /* ArtistCollectionViewCell.swift */,
 				5D7BC6B21F8DB977005A2790 /* AlbumCollectionViewCell.swift */,
-				5D7BC6B61F8DCDEE005A2790 /* TopBarView.swift */,
 				5D7BC6BC1F8DF634005A2790 /* TrackCollectionViewCell.swift */,
+				5D7BC6B61F8DCDEE005A2790 /* TopBarView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";

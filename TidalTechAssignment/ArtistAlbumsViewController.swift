@@ -82,7 +82,8 @@ extension ArtistAlbumsViewController:UICollectionViewDelegate {
             group.leave()
         }
         group.notify(queue: DispatchQueue.main) { 
-            
+            let tracksViewController = AlbumTracksViewController.init(trackArray: albumTracks, trackArtistName: self.albumsArray[indexPath.item].albumArtistName, trackAlbumName: self.albumsArray[indexPath.item].albumName)
+            self.present(tracksViewController, animated: true, completion: nil)
         }
     }
 }
