@@ -1,25 +1,26 @@
 //
-//  ViewController.swift
+//  ArtistAlbumsViewController.swift
 //  TidalTechAssignment
 //
-//  Created by Sofia Knezevic on 2017-10-04.
+//  Created by Sofia Knezevic on 2017-10-10.
 //  Copyright © 2017 Sofia Knezevic. All rights reserved.
 //
 
 import UIKit
 
-class ViewController: UIViewController {
+class ArtistAlbumsViewController: UIViewController {
 
+    //MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        view.backgroundColor = .red
     }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
-
+    //MARK: - Initializers
+//    init() {
+//        
+//    }
 }
-
