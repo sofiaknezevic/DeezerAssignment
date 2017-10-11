@@ -87,6 +87,7 @@ class DeezerManager: NSObject {
     
     class func retrieveAlbumTracks(album:DeezerAlbum, completionHandler:@escaping RetrieveAlbumTracksCompletionBlock) {
         var trackArray = [DeezerTrack]()
+        var deezerTrackDuration = TimeInterval()
         var request:URLRequest?
         if let retrieveTracksURL = URL.init(string: String.init(format: "%@album/%@/tracks", API.deezerBaseAPI, album.albumID)) {
             request = URLRequest.init(url: retrieveTracksURL)
@@ -97,19 +98,21 @@ class DeezerManager: NSObject {
             URLSession.shared.dataTask(with: retrieveTracksRequest, completionHandler: { (data:Data?, response:URLResponse?, error:Error?) in
                 if let jsonData = data {
                     let returnDictionary:NSDictionary = try! JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as! NSDictionary
-                    let trackDictArray = returnDictionary.object(forKey: "data") as! [NSDictionary]
-                    for deezerTrackDict in trackDictArray {
-                        
-                        let deezerTrackName = deezerTrackDict.object(forKey: "title") as! String
-                        let deezerTrackDurationNumber = deezerTrackDict.object(forKey: "duration") as! NSNumber
-                        let deezerTrackPosition = deezerTrackDict.object(forKey: "track_position") as! NSNumber
-                        let deezerTrackDuration = TimeInterval.init(deezerTrackDurationNumber)
-                        let deezerTrackDiskNumber = deezerTrackDict.object(forKey: "disk_number") as! NSNumber
-                        let newTrack = DeezerTrack.init(trackName: deezerTrackName, trackArtistName: album.albumArtistName, trackDuration: deezerTrackDuration, trackPosition: deezerTrackPosition, trackDiskNumber: deezerTrackDiskNumber)
-                        trackArray.append(newTrack)
+                    let deezerTrackArray = returnDictionary.object(forKey: "data") as? [NSDictionary]
+                    if let trackDictArray = deezerTrackArray {
+                        for deezerTrackDict in trackDictArray {
+                            let deezerTrackName = deezerTrackDict.object(forKey: "title") as? String
+                            let deezerTrackDurationNumber = deezerTrackDict.object(forKey: "duration") as? NSNumber
+                            if let duration = deezerTrackDurationNumber {
+                                deezerTrackDuration = TimeInterval.init(duration)
+                            }
+                            let deezerTrackPosition = deezerTrackDict.object(forKey: "track_position") as? NSNumber
+                            let deezerTrackDiskNumber = deezerTrackDict.object(forKey: "disk_number") as? NSNumber
+                            let newTrack = DeezerTrack.init(trackName: deezerTrackName, trackArtistName: album.albumArtistName, trackDuration: deezerTrackDuration, trackPosition: deezerTrackPosition, trackDiskNumber: deezerTrackDiskNumber)
+                            trackArray.append(newTrack)
+                        }
                     }
-                    
-                    
+
                     completionHandler(trackArray, error)
                 }
                 
