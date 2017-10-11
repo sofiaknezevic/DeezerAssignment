@@ -66,6 +66,9 @@ class AlbumTracksViewController: UIViewController {
         trackCollectionView.topAnchor.constraint(equalTo: trackAlbumImageView.bottomAnchor).isActive = true
         trackCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     //MARK: - Helpers
     private func numberOfDiscs() {
