@@ -99,6 +99,7 @@ class SearchArtistsViewController: UIViewController {
         artistSectionLabel.textColor = .white
 
         clearButton.setImage(UIImage.init(named: "clearIcon"), for: .normal)
+        clearButton.addTarget(self, action: #selector(clearSearchTextField), for: .touchUpInside)
         
         if let moreButtonImageView = moreButton.imageView, let clearButtonImageView = clearButton.imageView {
             moreButtonImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -172,6 +173,9 @@ class SearchArtistsViewController: UIViewController {
             containerArray = filteredArray + containsArray
         }
         return containerArray
+    }
+    func clearSearchTextField() {
+        searchTextField.text = ""
     }
     
     //MARK: - Lazy Initializer Variables
