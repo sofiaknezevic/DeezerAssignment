@@ -39,7 +39,7 @@ class TopBarView: UIView {
         
         containerStackView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         containerStackView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        containerStackView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        containerStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant:-20).isActive = true
         containerStackView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
     required init?(coder aDecoder: NSCoder) {
