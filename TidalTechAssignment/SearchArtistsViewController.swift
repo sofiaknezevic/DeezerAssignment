@@ -215,7 +215,7 @@ extension SearchArtistsViewController:UICollectionViewDelegate {
         
         let retrieveAlbumsGroup = DispatchGroup()
         retrieveAlbumsGroup.enter()
-        
+        SVProgressHUD.show()
         DeezerManager.retrieveArtistAlbums(artist: artistArray[indexPath.item]) { (albums:[DeezerAlbum]?, error:Error?) in
             if ((error) != nil) {
                 SVProgressHUD.showError(withStatus: StringConstants.fetchRequestErrorTitle)
@@ -229,6 +229,7 @@ extension SearchArtistsViewController:UICollectionViewDelegate {
         
         retrieveAlbumsGroup.notify(queue: DispatchQueue.main) {
             let albumsViewController = ArtistAlbumsViewController.init(albumsArray: albumsArray, albumArtistName: self.artistArray[indexPath.item].artistName)
+            SVProgressHUD.dismiss()
             self.present(albumsViewController, animated: true, completion: nil)
         }
     }

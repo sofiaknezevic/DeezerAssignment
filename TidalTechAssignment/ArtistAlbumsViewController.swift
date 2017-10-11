@@ -82,7 +82,7 @@ extension ArtistAlbumsViewController:UICollectionViewDelegate {
         
         let retrieveTracksGroup = DispatchGroup()
         retrieveTracksGroup.enter()
-        
+        SVProgressHUD.show()
         DeezerManager.retrieveAlbumTracks(album: albumsArray[indexPath.item]) { (trackArray:[DeezerTrack]?, error:Error?) in
             if ((error) != nil) {
                 SVProgressHUD.showError(withStatus: StringConstants.fetchRequestErrorTitle)
@@ -96,7 +96,7 @@ extension ArtistAlbumsViewController:UICollectionViewDelegate {
         retrieveTracksGroup.notify(queue: DispatchQueue.main) {
             let cell = collectionView.cellForItem(at: indexPath) as! AlbumCollectionViewCell
             let tracksViewController = AlbumTracksViewController.init(trackArray: albumTracks, trackArtistName: self.albumsArray[indexPath.item].albumArtistName, trackAlbumName: self.albumsArray[indexPath.item].albumName, albumImage:cell.albumImageView.image)
-            
+            SVProgressHUD.dismiss()
             self.present(tracksViewController, animated: true, completion: nil)
         }
     }
