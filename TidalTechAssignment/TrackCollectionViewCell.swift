@@ -21,6 +21,10 @@ class TrackCollectionViewCell: UICollectionViewCell {
         containerStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8).isActive = true
         containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8).isActive = true
         containerStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8).isActive = true
+        
+        trackNumberLabel.translatesAutoresizingMaskIntoConstraints = false
+        trackNumberLabel.widthAnchor.constraint(equalToConstant: 15).isActive = true
+        trackDurationLabel.widthAnchor.constraint(equalToConstant: 20).isActive = true
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -28,38 +32,45 @@ class TrackCollectionViewCell: UICollectionViewCell {
     
     //MARK: - Configuration
     func configureCell(track:DeezerTrack) {
-        let formatter = DateComponentsFormatter()
-        formatter.unitsStyle = .positional
-        formatter.allowedUnits = [ .minute, .second ]
-        formatter.zeroFormattingBehavior = [ .pad ]
-        
-        
         trackNameLabel.text = track.trackName
         trackArtistNameLabel.text = track.trackArtistName
         trackDurationLabel.text = formatter.string(from: track.trackDuration)
         trackNumberLabel.text = String.init(format: "%@.", track.trackPosition)
     }
-    
     //MARK: - Lazy Initializer Variables
+    //MARK: - Date Formatter
+    private lazy var formatter:DateComponentsFormatter = {
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .positional
+        formatter.allowedUnits = [.minute, .second]
+        formatter.zeroFormattingBehavior = [.pad]
+        return formatter
+    }()
     //MARK: - Labels
     private lazy var trackNameLabel:UILabel = {
         let trackNameLabel = UILabel()
         trackNameLabel.textColor = .white
+        trackNameLabel.font = UIFont.boldSystemFont(ofSize:10)
+        trackNameLabel.numberOfLines = 0
         return trackNameLabel
     }()
     private lazy var trackArtistNameLabel:UILabel = {
         let artistNameLabel = UILabel()
-        artistNameLabel.textColor = .white
+        artistNameLabel.textColor = .lightGray
+        artistNameLabel.font = UIFont.systemFont(ofSize: 8)
+        artistNameLabel.numberOfLines = 0
         return artistNameLabel
     }()
     private lazy var trackDurationLabel:UILabel = {
         let trackDurationLabel = UILabel()
-        trackDurationLabel.textColor = .white
+        trackDurationLabel.textColor = .lightGray
+        trackDurationLabel.font = UIFont.systemFont(ofSize:8)
         return trackDurationLabel
     }()
     private lazy var trackNumberLabel:UILabel = {
         let trackNumberLabel = UILabel()
         trackNumberLabel.textColor = .white
+        trackNumberLabel.font = UIFont.boldSystemFont(ofSize:10)
         return trackNumberLabel
     }()
     //MARK: - StackViews
@@ -67,14 +78,14 @@ class TrackCollectionViewCell: UICollectionViewCell {
         let centerLabelStackView = UIStackView(arrangedSubviews: [self.trackNameLabel, self.trackArtistNameLabel])
         centerLabelStackView.axis = .vertical
         centerLabelStackView.alignment = .fill
-        centerLabelStackView.distribution = .fillProportionally
-        centerLabelStackView.spacing = 5
+        centerLabelStackView.distribution = .fill
+        centerLabelStackView.spacing = 2
         return centerLabelStackView
     }()
     private lazy var containerStackView:UIStackView = {
         let containerStackView = UIStackView(arrangedSubviews: [self.trackNumberLabel, self.centerLabelStackView, self.trackDurationLabel])
         containerStackView.axis = .horizontal
-        containerStackView.alignment = .fill
+        containerStackView.alignment = .center
         containerStackView.distribution = .fillProportionally
         containerStackView.spacing = 5
         return containerStackView
