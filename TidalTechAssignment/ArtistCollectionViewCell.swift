@@ -15,16 +15,7 @@ class ArtistCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         contentView.addSubview(containerStackView)
         contentView.backgroundColor = UIColor.init(colorLiteralRed: (35/251), green: (35/251), blue: (35/251), alpha: 1)
-
-        containerStackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        artistImageView.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        artistImageView.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
-        containerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8).isActive = true
-        containerStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8).isActive = true
-        containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8).isActive = true
-        containerStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8).isActive = true
+        setConstraints()
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -41,6 +32,16 @@ class ArtistCollectionViewCell: UICollectionViewCell {
                 
             })
         }
+    }
+    private func setConstraints() {
+        //artistimageview
+        artistImageView.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        artistImageView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        //containerstackview
+        Utilities.constrainLeadingAndTrailing(childView: containerStackView, parentView: contentView, constant: 8)
+        containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8).isActive = true
+        containerStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8).isActive = true
     }
     
     //MARK: - Lazy Initializer Variables -

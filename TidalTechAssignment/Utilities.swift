@@ -35,6 +35,8 @@ struct SizeConstants {
     static let barHeightMultipler = CGFloat.init(0.12)
     static let marginPadding = CGFloat.init(8)
     static let artistCellHeight = CGFloat.init(66)
+//    static let artistImageHeight = CGFloat.init(50)
+//    static let artistImageWidth = CGFloat.init(80)
 }
 //MARK: - Strings
 struct StringConstants {

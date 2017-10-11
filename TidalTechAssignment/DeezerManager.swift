@@ -37,13 +37,9 @@ class DeezerManager: NSObject {
                             let deezerArtistImageName = deezerArtistDict.object(forKey: API.artistImageNameKey) as? String
                             let deezerArtistID = deezerArtistDict.object(forKey: API.IDKey) as? NSNumber
                             let newArtist = DeezerArtist.init(artistName: deezerArtistName, artistImageName: deezerArtistImageName, artistID: deezerArtistID)
-                            
-                            if !(artistArray.contains(newArtist)) {
-                                artistArray.append(newArtist)
-                            }
+                            artistArray.append(newArtist)
                         }
                     }
-                    
                     completionHandler(artistArray, error)
                 }
                 
@@ -77,7 +73,6 @@ class DeezerManager: NSObject {
                         }
                         
                     }
-                    
                     completionHandler(albumArray, error)
                 }
                 
@@ -112,7 +107,6 @@ class DeezerManager: NSObject {
                             trackArray.append(newTrack)
                         }
                     }
-
                     completionHandler(trackArray, error)
                 }
                 
