@@ -29,21 +29,17 @@ class DeezerManager: NSObject {
             URLSession.shared.dataTask(with: searchRequest) { (data:Data?, response:URLResponse?, error:Error?) in
                 if let jsonData = data {
                     let returnDictionary:NSDictionary = try! JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as! NSDictionary
-                    let deezerArtistArray = returnDictionary.object(forKey: "data") as? [NSDictionary]
+                    let deezerArtistArray = returnDictionary.object(forKey: API.dataKey) as? [NSDictionary]
                     
                     if let artistDictArray = deezerArtistArray {
                         for deezerArtistDict in artistDictArray {
-                            let deezerArtistName = deezerArtistDict.object(forKey: "name") as? String
-                            let deezerArtistImageName = deezerArtistDict.object(forKey: "picture") as? String
-                            let deezerArtistID = deezerArtistDict.object(forKey: "id") as? NSNumber
+                            let deezerArtistName = deezerArtistDict.object(forKey: API.nameKey) as? String
+                            let deezerArtistImageName = deezerArtistDict.object(forKey: API.artistImageNameKey) as? String
+                            let deezerArtistID = deezerArtistDict.object(forKey: API.IDKey) as? NSNumber
                             let newArtist = DeezerArtist.init(artistName: deezerArtistName, artistImageName: deezerArtistImageName, artistID: deezerArtistID)
-                            
-                            if !(artistArray.contains(newArtist)) {
-                                artistArray.append(newArtist)
-                            }
+                            artistArray.append(newArtist)
                         }
                     }
-                    
                     completionHandler(artistArray, error)
                 }
                 
@@ -65,19 +61,18 @@ class DeezerManager: NSObject {
             URLSession.shared.dataTask(with: retrieveAlbumsRequest, completionHandler: { (data:Data?, response:URLResponse?, error:Error?) in
                 if let jsonData = data {
                     let returnDictionary:NSDictionary = try! JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as! NSDictionary
-                    let deezerAlbumArray = returnDictionary.object(forKey: "data") as? [NSDictionary]
+                    let deezerAlbumArray = returnDictionary.object(forKey: API.dataKey) as? [NSDictionary]
                     
                     if let albumDictArray = deezerAlbumArray {
                         for deezerAlbumDict in albumDictArray {
-                            let deezerAlbumName = deezerAlbumDict.object(forKey: "title") as? String
-                            let deezerAlbumImagename = deezerAlbumDict.object(forKey: "cover_xl") as? String
-                            let deezerAlbumID = deezerAlbumDict.object(forKey: "id") as? NSNumber
+                            let deezerAlbumName = deezerAlbumDict.object(forKey: API.titleKey) as? String
+                            let deezerAlbumImagename = deezerAlbumDict.object(forKey: API.albumImageNameKey) as? String
+                            let deezerAlbumID = deezerAlbumDict.object(forKey: API.IDKey) as? NSNumber
                             let newAlbum = DeezerAlbum.init(albumArtistName: artist.artistName, albumImageName: deezerAlbumImagename, albumName: deezerAlbumName, albumID: deezerAlbumID)
                             albumArray.append(newAlbum)
                         }
                         
                     }
-                    
                     completionHandler(albumArray, error)
                 }
                 
@@ -98,21 +93,20 @@ class DeezerManager: NSObject {
             URLSession.shared.dataTask(with: retrieveTracksRequest, completionHandler: { (data:Data?, response:URLResponse?, error:Error?) in
                 if let jsonData = data {
                     let returnDictionary:NSDictionary = try! JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as! NSDictionary
-                    let deezerTrackArray = returnDictionary.object(forKey: "data") as? [NSDictionary]
+                    let deezerTrackArray = returnDictionary.object(forKey: API.dataKey) as? [NSDictionary]
                     if let trackDictArray = deezerTrackArray {
                         for deezerTrackDict in trackDictArray {
-                            let deezerTrackName = deezerTrackDict.object(forKey: "title") as? String
-                            let deezerTrackDurationNumber = deezerTrackDict.object(forKey: "duration") as? NSNumber
+                            let deezerTrackName = deezerTrackDict.object(forKey: API.titleKey) as? String
+                            let deezerTrackDurationNumber = deezerTrackDict.object(forKey: API.trackDurationKey) as? NSNumber
                             if let duration = deezerTrackDurationNumber {
                                 deezerTrackDuration = TimeInterval.init(duration)
                             }
-                            let deezerTrackPosition = deezerTrackDict.object(forKey: "track_position") as? NSNumber
-                            let deezerTrackDiskNumber = deezerTrackDict.object(forKey: "disk_number") as? NSNumber
+                            let deezerTrackPosition = deezerTrackDict.object(forKey: API.trackPositionKey) as? NSNumber
+                            let deezerTrackDiskNumber = deezerTrackDict.object(forKey: API.diskNumberKey) as? NSNumber
                             let newTrack = DeezerTrack.init(trackName: deezerTrackName, trackArtistName: album.albumArtistName, trackDuration: deezerTrackDuration, trackPosition: deezerTrackPosition, trackDiskNumber: deezerTrackDiskNumber)
                             trackArray.append(newTrack)
                         }
                     }
-
                     completionHandler(trackArray, error)
                 }
                 

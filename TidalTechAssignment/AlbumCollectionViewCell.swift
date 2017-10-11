@@ -29,14 +29,14 @@ class AlbumCollectionViewCell: UICollectionViewCell {
             albumImageView.setImageWith(URLRequest.init(url: imageURL), placeholderImage: nil, success: { (request:URLRequest, response:HTTPURLResponse?, image:UIImage) in
                 self.albumImageView.image = image
             }, failure: { (request:URLRequest, response:HTTPURLResponse?, error:Error) in
-                self.albumImageView.image = UIImage.init(named: "noImage")
+                self.albumImageView.image = UIImage.init(named: StringConstants.noImageImageName)
             })
         } else {
-            albumImageView.image = UIImage.init(named: "albumPlaceHolder")
+            albumImageView.image = UIImage.init(named: StringConstants.albumPlaceholderImageName)
         }
     }
     private func setConstraints() {
-        Utilities.constrainLeadingAndTrailing(childView: containerStackView, parentView: contentView, constant: 8)
+        Utilities.constrainLeadingAndTrailing(childView: containerStackView, parentView: contentView, constant: SizeConstants.marginPadding)
         containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: SizeConstants.marginPadding).isActive = true
         containerStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -(SizeConstants.marginPadding)).isActive = true
         

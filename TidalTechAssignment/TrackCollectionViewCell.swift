@@ -30,11 +30,10 @@ class TrackCollectionViewCell: UICollectionViewCell {
         trackNumberLabel.text = String.init(format: "%@.", track.trackPosition)
     }
     private func setConstraints() {
-        Utilities.constrainLeadingAndTrailing(childView: containerStackView, parentView: contentView, constant: 8)
+        Utilities.constrainLeadingAndTrailing(childView: containerStackView, parentView: contentView, constant: SizeConstants.marginPadding)
         containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         containerStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         
-        //hot fix for now... didn't have time to look at this thoroughly
         trackNumberLabel.widthAnchor.constraint(equalToConstant: 20).isActive = true
         trackDurationLabel.widthAnchor.constraint(equalToConstant: 30).isActive = true
     }
