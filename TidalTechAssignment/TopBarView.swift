@@ -21,6 +21,8 @@ class TopBarView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        backgroundColor = UIColor.init(colorLiteralRed: (28/251), green: (28/251), blue: (28/251), alpha: 1)
+        
         topLabel.textColor = .white
         bottomLabel.textColor = .white
         

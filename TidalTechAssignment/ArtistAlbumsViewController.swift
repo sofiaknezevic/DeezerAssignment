@@ -17,6 +17,8 @@ class ArtistAlbumsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .black
+        
         albumTopBarView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(albumTopBarView)
         view.addSubview(albumCollectionView)
