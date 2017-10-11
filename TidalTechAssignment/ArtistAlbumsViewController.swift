@@ -83,6 +83,8 @@ extension ArtistAlbumsViewController:UICollectionViewDelegate {
         }
         group.notify(queue: DispatchQueue.main) { 
             let tracksViewController = AlbumTracksViewController.init(trackArray: albumTracks, trackArtistName: self.albumsArray[indexPath.item].albumArtistName, trackAlbumName: self.albumsArray[indexPath.item].albumName)
+            let cell = collectionView.cellForItem(at: indexPath) as! AlbumCollectionViewCell
+            tracksViewController.trackAlbumImageView.image = cell.albumImageView.image
             self.present(tracksViewController, animated: true, completion: nil)
         }
     }

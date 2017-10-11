@@ -57,7 +57,7 @@ class AlbumCollectionViewCell: UICollectionViewCell {
         return albumNameLabel
     }()
     //MARK: - ImageView
-    private lazy var albumImageView:UIImageView = {
+    lazy var albumImageView:UIImageView = {
         let albumImageView = UIImageView()
         albumImageView.contentMode = .scaleAspectFill
         albumImageView.clipsToBounds = true

@@ -57,7 +57,7 @@ class AlbumTracksViewController: UIViewController {
     
     //MARK: - Lazy Initializer Variables
     //MARK: - Album Image View
-    private lazy var trackAlbumImageView:UIImageView = {
+    lazy var trackAlbumImageView:UIImageView = {
         let trackAlbumImageView = UIImageView()
         trackAlbumImageView.contentMode = .scaleAspectFill
         trackAlbumImageView.clipsToBounds = true
