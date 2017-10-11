@@ -14,7 +14,7 @@ class ArtistCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(containerStackView)
-        artistNameLabel.translatesAutoresizingMaskIntoConstraints = false
+//        artistNameLabel.translatesAutoresizingMaskIntoConstraints = false
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
         
         artistImageView.widthAnchor.constraint(equalToConstant: 80).isActive = true

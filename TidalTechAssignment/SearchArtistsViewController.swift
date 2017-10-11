@@ -227,8 +227,10 @@ class SearchArtistsViewController: UIViewController {
 //MARK: - UICollectionView Delegate & DataSource
 extension SearchArtistsViewController:UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let albumsViewController = ArtistAlbumsViewController()
-        present(albumsViewController, animated: true, completion: nil)
+        DeezerManager.retrieveArtistAlbums(artist: artistArray[indexPath.item]) { (albums:[DeezerAlbum]?, error:Error?) in
+            let albumsViewController = ArtistAlbumsViewController()
+            self.present(albumsViewController, animated: true, completion: nil)
+        }
     }
 }
 extension SearchArtistsViewController:UICollectionViewDataSource {
