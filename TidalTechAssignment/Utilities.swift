@@ -61,6 +61,19 @@ struct API {
     private init() {}
     
     static let deezerBaseAPI = "https://api.deezer.com/"
+    
+    static let dataKey = "data"
+    static let IDKey = "id"
+    
+    static let nameKey = "name"
+    static let titleKey = "title"
+    
+    static let artistImageNameKey = "picture"
+    static let albumImageNameKey = "cover_xl"
+    
+    static let trackDurationKey = "duration"
+    static let trackPositionKey = "track_position"
+    static let diskNumberKey = "disk_number"
 }
 
 //MARK: - Extensions - 
