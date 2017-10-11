@@ -93,11 +93,9 @@ extension ArtistAlbumsViewController:UICollectionViewDelegate {
             }
             retrieveTracksGroup.leave()
         }
-        retrieveTracksGroup.notify(queue: DispatchQueue.main) { 
-            let tracksViewController = AlbumTracksViewController.init(trackArray: albumTracks, trackArtistName: self.albumsArray[indexPath.item].albumArtistName, trackAlbumName: self.albumsArray[indexPath.item].albumName)
-            
+        retrieveTracksGroup.notify(queue: DispatchQueue.main) {
             let cell = collectionView.cellForItem(at: indexPath) as! AlbumCollectionViewCell
-            tracksViewController.trackAlbumImageView.image = cell.albumImageView.image
+            let tracksViewController = AlbumTracksViewController.init(trackArray: albumTracks, trackArtistName: self.albumsArray[indexPath.item].albumArtistName, trackAlbumName: self.albumsArray[indexPath.item].albumName, albumImage:cell.albumImageView.image)
             
             self.present(tracksViewController, animated: true, completion: nil)
         }
@@ -120,7 +118,7 @@ extension ArtistAlbumsViewController:UICollectionViewDataSource {
 //MARK: - UICollectionView Flow Layout
 extension ArtistAlbumsViewController:UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (collectionView.bounds.width/2), height: (collectionView.bounds.width/2))
+        return CGSize(width: (collectionView.bounds.width/2), height: (collectionView.bounds.width/2)+50)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0

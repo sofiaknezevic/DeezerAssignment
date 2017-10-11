@@ -32,12 +32,16 @@ class AlbumTracksViewController: UIViewController {
     }
 
     //MARK: - Initializers
-    init(trackArray:[DeezerTrack], trackArtistName:String, trackAlbumName:String) {
+    init(trackArray:[DeezerTrack], trackArtistName:String, trackAlbumName:String, albumImage:UIImage?) {
         super.init(nibName: nil, bundle: nil)
         
         self.trackArray = trackArray
         trackTopBarView.configureView(topLabelText: trackAlbumName, bottomLabelText: trackArtistName)
         trackTopBarView.closeButton.addTarget(self, action: #selector(dismissSelf), for: .touchUpInside)
+        
+        if let image = albumImage {
+            trackAlbumImageView.image = image
+        }
         
         numberOfDiscs()
     }
