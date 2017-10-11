@@ -9,5 +9,15 @@
 import UIKit
 
 class DeezerTrack: NSObject {
-
+    
+    var trackName = String()
+    var trackDuration = TimeInterval()
+    var trackPosition = NSNumber()
+    
+    init(trackName:String, trackDuration:TimeInterval, trackPosition:NSNumber) {
+        self.trackName = trackName
+        self.trackDuration = trackDuration
+        self.trackPosition = trackPosition
+    }
+    
 }
