@@ -29,16 +29,18 @@ class DeezerManager: NSObject {
             URLSession.shared.dataTask(with: searchRequest) { (data:Data?, response:URLResponse?, error:Error?) in
                 if let jsonData = data {
                     let returnDictionary:NSDictionary = try! JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as! NSDictionary
-                    let artistDictArray = returnDictionary.object(forKey: "data") as! [NSDictionary]
+                    let deezerArtistArray = returnDictionary.object(forKey: "data") as? [NSDictionary]
                     
-                    for deezerArtistDict in artistDictArray {
-                        let deezerArtistName = deezerArtistDict.object(forKey: "name") as! String
-                        let deezerArtistImageName = deezerArtistDict.object(forKey: "picture") as! String
-                        let deezerArtistID = deezerArtistDict.object(forKey: "id") as! NSNumber
-                        let newArtist = DeezerArtist.init(artistName: deezerArtistName, artistImageName: deezerArtistImageName, artistID: deezerArtistID)
-                        
-                        if !(artistArray.contains(newArtist)) {
-                            artistArray.append(newArtist)
+                    if let artistDictArray = deezerArtistArray {
+                        for deezerArtistDict in artistDictArray {
+                            let deezerArtistName = deezerArtistDict.object(forKey: "name") as? String
+                            let deezerArtistImageName = deezerArtistDict.object(forKey: "picture") as? String
+                            let deezerArtistID = deezerArtistDict.object(forKey: "id") as? NSNumber
+                            let newArtist = DeezerArtist.init(artistName: deezerArtistName, artistImageName: deezerArtistImageName, artistID: deezerArtistID)
+                            
+                            if !(artistArray.contains(newArtist)) {
+                                artistArray.append(newArtist)
+                            }
                         }
                     }
                     
@@ -63,14 +65,17 @@ class DeezerManager: NSObject {
             URLSession.shared.dataTask(with: retrieveAlbumsRequest, completionHandler: { (data:Data?, response:URLResponse?, error:Error?) in
                 if let jsonData = data {
                     let returnDictionary:NSDictionary = try! JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as! NSDictionary
-                    let albumDictArray = returnDictionary.object(forKey: "data") as! [NSDictionary]
+                    let deezerAlbumArray = returnDictionary.object(forKey: "data") as? [NSDictionary]
                     
-                    for deezerAlbumDict in albumDictArray {
-                        let deezerAlbumName = deezerAlbumDict.object(forKey: "title") as! String
-                        let deezerAlbumImagename = deezerAlbumDict.object(forKey: "cover_xl") as? String
-                        let deezerAlbumID = deezerAlbumDict.object(forKey: "id") as! NSNumber
-                        let newAlbum = DeezerAlbum.init(albumArtistName: artist.artistName, albumImageName: deezerAlbumImagename, albumName: deezerAlbumName, albumID: deezerAlbumID)
-                        albumArray.append(newAlbum)
+                    if let albumDictArray = deezerAlbumArray {
+                        for deezerAlbumDict in albumDictArray {
+                            let deezerAlbumName = deezerAlbumDict.object(forKey: "title") as? String
+                            let deezerAlbumImagename = deezerAlbumDict.object(forKey: "cover_xl") as? String
+                            let deezerAlbumID = deezerAlbumDict.object(forKey: "id") as? NSNumber
+                            let newAlbum = DeezerAlbum.init(albumArtistName: artist.artistName, albumImageName: deezerAlbumImagename, albumName: deezerAlbumName, albumID: deezerAlbumID)
+                            albumArray.append(newAlbum)
+                        }
+                        
                     }
                     
                     completionHandler(albumArray, error)

@@ -16,12 +16,14 @@ class DeezerTrack: NSObject {
     var trackPosition = NSNumber()
     var trackDiskNumber = NSNumber()
     
-    init(trackName:String, trackArtistName:String, trackDuration:TimeInterval, trackPosition:NSNumber, trackDiskNumber:NSNumber) {
-        self.trackName = trackName
-        self.trackArtistName = trackArtistName
-        self.trackDuration = trackDuration
-        self.trackPosition = trackPosition
-        self.trackDiskNumber = trackDiskNumber
+    init(trackName:String?, trackArtistName:String?, trackDuration:TimeInterval?, trackPosition:NSNumber?, trackDiskNumber:NSNumber?) {
+        if let name = trackName, let artistName = trackArtistName, let duration = trackDuration, let position = trackPosition, let diskNumber = trackDiskNumber {
+            self.trackName = name
+            self.trackArtistName = artistName
+            self.trackDuration = duration
+            self.trackPosition = position
+            self.trackDiskNumber = diskNumber
+        }
     }
     
 }
