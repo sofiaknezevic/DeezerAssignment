@@ -57,43 +57,21 @@ class SearchArtistsViewController: UIViewController {
         view.addSubview(artistCollectionView)
         view.backgroundColor = .black
         
-        
-
-        //constraints
-        searchBarContainerView.translatesAutoresizingMaskIntoConstraints = false
-        searchBarContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        Utilities.constrainLeadingAndTrailing(childView: searchBarContainerView, parentView: view, constant: 0)
         searchBarContainerView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
-        searchBarContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         searchBarContainerView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.15).isActive = true
         
-        artistSectionContainerView.translatesAutoresizingMaskIntoConstraints = false
+        Utilities.constrainLeadingAndTrailing(childView: artistSectionContainerView, parentView: view, constant: 0)
         artistSectionContainerView.topAnchor.constraint(equalTo: searchBarContainerView.bottomAnchor).isActive = true
-        artistSectionContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        artistSectionContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         artistSectionContainerView.heightAnchor.constraint(equalTo: searchBarContainerView.heightAnchor).isActive = true
         
         
-        artistSectionStackView.translatesAutoresizingMaskIntoConstraints = false
-        artistSectionStackView.leadingAnchor.constraint(equalTo: artistSectionContainerView.leadingAnchor, constant: 25).isActive = true
-        artistSectionStackView.topAnchor.constraint(equalTo: artistSectionContainerView.topAnchor).isActive = true
-        artistSectionStackView.trailingAnchor.constraint(equalTo: artistSectionContainerView.trailingAnchor).isActive = true
-        artistSectionStackView.bottomAnchor.constraint(equalTo: artistSectionContainerView.bottomAnchor).isActive = true
-        
-        artistSectionImageView.translatesAutoresizingMaskIntoConstraints = false
-        artistSectionImageView.contentMode = .scaleAspectFit
-        artistSectionImageView.heightAnchor.constraint(equalToConstant: 15).isActive = true
-        artistSectionImageView.widthAnchor.constraint(equalTo: artistSectionImageView.heightAnchor).isActive = true
-        artistSectionImageView.centerXAnchor.constraint(equalTo: artistImageContainerView.centerXAnchor).isActive = true
-        artistSectionImageView.centerYAnchor.constraint(equalTo: artistImageContainerView.centerYAnchor).isActive = true
-        
+        artistSectionImageView.constrainIconImageView(imageView: artistSectionImageView, to: artistImageContainerView)
+        Utilities.constrainToAllSides(childView: artistSectionStackView, parentView: artistSectionContainerView)
+
         artistSectionImageView.image = UIImage.init(named: "microphone")
         
-        searchIconImageView.translatesAutoresizingMaskIntoConstraints = false
-        searchIconImageView.widthAnchor.constraint(equalToConstant: 15).isActive = true
-        searchIconImageView.heightAnchor.constraint(equalToConstant: 15).isActive = true
-        searchIconImageView.centerXAnchor.constraint(equalTo: searchIconContainerView.centerXAnchor).isActive = true
-        searchIconImageView.centerYAnchor.constraint(equalTo: searchIconContainerView.centerYAnchor).isActive = true
-        searchIconImageView.contentMode = .scaleAspectFit
+        searchIconImageView.constrainIconImageView(imageView: searchIconImageView, to: searchIconContainerView)
         
         artistSectionLabel.text = "ARTISTS"
         artistSectionLabel.textColor = .white
@@ -101,20 +79,8 @@ class SearchArtistsViewController: UIViewController {
         clearButton.setImage(UIImage.init(named: "clearIcon"), for: .normal)
         clearButton.addTarget(self, action: #selector(clearSearchTextField), for: .touchUpInside)
         
-        if let moreButtonImageView = moreButton.imageView, let clearButtonImageView = clearButton.imageView {
-            moreButtonImageView.translatesAutoresizingMaskIntoConstraints = false
-            moreButtonImageView.heightAnchor.constraint(equalToConstant: 15).isActive = true
-            moreButtonImageView.widthAnchor.constraint(equalTo: moreButtonImageView.heightAnchor).isActive = true
-            moreButtonImageView.contentMode = .scaleAspectFit
-            
-            clearButtonImageView.translatesAutoresizingMaskIntoConstraints = false
-            clearButtonImageView.heightAnchor.constraint(equalToConstant: 15).isActive = true
-            clearButtonImageView.widthAnchor.constraint(equalTo: moreButtonImageView.heightAnchor).isActive = true
-            clearButtonImageView.contentMode = .scaleAspectFit
-            
-        }
-        moreButton.widthAnchor.constraint(equalTo: moreButton.heightAnchor).isActive = true
-        clearButton.widthAnchor.constraint(equalTo: clearButton.heightAnchor).isActive = true
+        moreButton.constrainIconButton(iconButton: moreButton)
+        clearButton.constrainIconButton(iconButton: clearButton)
         searchBarStackView.translatesAutoresizingMaskIntoConstraints = false
         searchBarStackView.topAnchor.constraint(equalTo: searchBarContainerView.topAnchor, constant: 8).isActive = true
         searchBarStackView.leadingAnchor.constraint(equalTo: searchBarContainerView.leadingAnchor, constant: 8).isActive = true

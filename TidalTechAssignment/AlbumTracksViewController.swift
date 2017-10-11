@@ -94,7 +94,7 @@ extension AlbumTracksViewController:UICollectionViewDelegate {
 }
 extension AlbumTracksViewController:UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return sections
+        return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return trackArray.count

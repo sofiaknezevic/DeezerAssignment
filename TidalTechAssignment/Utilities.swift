@@ -10,6 +10,19 @@ import UIKit
 
 class Utilities: NSObject {
     
+    class func constrainToAllSides(childView:UIView, parentView:UIView) {
+        childView.translatesAutoresizingMaskIntoConstraints = false
+        childView.leadingAnchor.constraint(equalTo: parentView.leadingAnchor).isActive = true
+        childView.topAnchor.constraint(equalTo: parentView.topAnchor).isActive = true
+        childView.trailingAnchor.constraint(equalTo: parentView.trailingAnchor).isActive = true
+        childView.bottomAnchor.constraint(equalTo: parentView.bottomAnchor).isActive = true
+    }
+
+    class func constrainLeadingAndTrailing(childView:UIView, parentView:UIView, constant:CGFloat) {
+        childView.translatesAutoresizingMaskIntoConstraints = false
+        childView.leadingAnchor.constraint(equalTo: parentView.leadingAnchor, constant:constant).isActive = true
+        childView.trailingAnchor.constraint(equalTo: parentView.trailingAnchor, constant:-constant).isActive = true
+    }
 }
 
 //MARK: - Extensions - 
@@ -30,9 +43,6 @@ extension String {
 //MARK: - Button
 extension UIButton {
     func constrainIconButton(iconButton:UIButton) {
-        iconButton.translatesAutoresizingMaskIntoConstraints = false
-        iconButton.widthAnchor.constraint(equalTo: iconButton.heightAnchor).isActive = true
-        
         if let iconButtonImageView = iconButton.imageView {
             iconButtonImageView.contentMode = .scaleAspectFit
             iconButtonImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -40,6 +50,8 @@ extension UIButton {
             iconButtonImageView.heightAnchor.constraint(equalToConstant: 15).isActive = true
             iconButtonImageView.widthAnchor.constraint(equalTo: iconButtonImageView.heightAnchor).isActive = true
         }
+        iconButton.translatesAutoresizingMaskIntoConstraints = false
+        iconButton.widthAnchor.constraint(equalTo: iconButton.heightAnchor).isActive = true
     }
 }
 
@@ -52,7 +64,7 @@ extension UIImageView {
         
         imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor).isActive = true
         containerView.heightAnchor.constraint(equalTo: imageView.heightAnchor, multiplier:2).isActive = true
-        containerView.widthAnchor.constraint(equalTo: imageView.widthAnchor, multiplier:2).isActive = true
+        containerView.widthAnchor.constraint(equalTo: imageView.widthAnchor).isActive = true
         imageView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
         imageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
     }
