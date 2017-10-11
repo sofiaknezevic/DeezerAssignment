@@ -11,7 +11,8 @@ import UIKit
 class SearchArtistsViewController: UIViewController {
     
     var artistArray = [DeezerArtist]()
-
+    let containerView = UIView()
+    
     //MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,11 +24,18 @@ class SearchArtistsViewController: UIViewController {
     
     //MARK: - Setup & Configuration
     private func setUpView() {
-        view.addSubview(searchBarStackView)
+        containerView.addSubview(searchBarStackView)
+        containerView.backgroundColor = UIColor.init(colorLiteralRed: (28/251), green: (28/251), blue: (28/251), alpha: 1)
+        view.addSubview(containerView)
         view.addSubview(artistCollectionView)
-        view.backgroundColor = UIColor.init(colorLiteralRed: (28/251), green: (28/251), blue: (28/251), alpha: 1)
+        view.backgroundColor = .black
         
         //constraints
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        containerView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
+        containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        containerView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.1).isActive = true
         
 
         if let moreButtonImageView = moreButton.imageView {
@@ -37,10 +45,10 @@ class SearchArtistsViewController: UIViewController {
         }
         moreButton.widthAnchor.constraint(equalTo: moreButton.heightAnchor).isActive = true
         searchBarStackView.translatesAutoresizingMaskIntoConstraints = false
-        searchBarStackView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor, constant: 8).isActive = true
-        searchBarStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8).isActive = true
-        searchBarStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8).isActive = true
-        searchBarStackView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.1).isActive = true
+        searchBarStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 8).isActive = true
+        searchBarStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 8).isActive = true
+        searchBarStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8).isActive = true
+        searchBarStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
         
         artistCollectionView.topAnchor.constraint(equalTo: searchBarStackView.bottomAnchor).isActive = true
         artistCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -92,9 +100,6 @@ class SearchArtistsViewController: UIViewController {
             let containsArray = (artists as NSArray).filtered(using: containsPredicate) as! [DeezerArtist]
             
             containerArray = filteredArray + containsArray
-        }
-        for artists in containerArray {
-            print(artists.artistName)
         }
         return containerArray
     }

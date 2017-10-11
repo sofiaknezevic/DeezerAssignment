@@ -36,7 +36,6 @@ class DeezerManager: NSObject {
                         
                         if !(artistArray.contains(newArtist)) {
                             artistArray.append(newArtist)
-                            //                        print(newArtist.artistName)
                         }
                     }
                     

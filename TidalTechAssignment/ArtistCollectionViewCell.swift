@@ -32,11 +32,11 @@ class ArtistCollectionViewCell: UICollectionViewCell {
     //MARK: - Configuration
     func configureCell(artist:DeezerArtist) {
         artistNameLabel.text = artist.artistName
-        if let imageURL = URL.init(string: artist.imageName), let placeholderImage = Utilities.deezerPlaceholderImage() {
+        if let imageURL = URL.init(string: artist.imageName), let placeholderImage = UIImage.init(named: "placeholderArtistImage") {
             
             artistImageView.setImageWith(URLRequest.init(url: imageURL), placeholderImage: placeholderImage, success: { (request:URLRequest, response:HTTPURLResponse?, image:UIImage) in
                 weak var weakSelf = self
-                weakSelf?.artistImageView.image = image
+                self.artistImageView.image = image
             }, failure: { (request:URLRequest, response:HTTPURLResponse?, error:Error) in
                 
             })
