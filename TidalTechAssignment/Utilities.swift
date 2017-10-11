@@ -35,8 +35,8 @@ struct SizeConstants {
     static let barHeightMultipler = CGFloat.init(0.12)
     static let marginPadding = CGFloat.init(8)
     static let artistCellHeight = CGFloat.init(66)
-//    static let artistImageHeight = CGFloat.init(50)
-//    static let artistImageWidth = CGFloat.init(80)
+    static let artistImageHeight = CGFloat.init(50)
+    static let artistImageWidth = CGFloat.init(80)
 }
 //MARK: - Strings
 struct StringConstants {
@@ -54,6 +54,9 @@ struct StringConstants {
     static let clearIconImageName = "clearIcon"
     static let moreMenuIconImageName = "moreMenuIcon"
     static let searchIconImageName = "searchIcon"
+    static let artistPlaceholderImageName = "placeholderArtistImage"
+    static let albumPlaceholderImageName = "albumPlaceHolder"
+    static let noImageImageName = "noImage"
     
     static let fetchRequestErrorTitle = "Sorry, something went wrong!"
 }
