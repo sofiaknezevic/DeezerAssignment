@@ -12,13 +12,13 @@ class SearchArtistsViewController: UIViewController {
     
     var artistArray = [DeezerArtist]()
     
-    let artistSectionImageView = UIImageView()
-    let artistSectionLabel = UILabel()
+    private let artistSectionImageView = UIImageView()
+    private let artistSectionLabel = UILabel()
     
-    let searchIconImageView = UIImageView()
+    private let searchIconImageView = UIImageView()
 
-    let clearButton = UIButton()
-    let moreButton = UIButton()
+    private let clearButton = UIButton()
+    private let moreButton = UIButton()
     
     //MARK: - View LifeCycle
     override func viewDidLoad() {
@@ -31,7 +31,6 @@ class SearchArtistsViewController: UIViewController {
 
     //MARK: - Setup & Configuration
     private func setUpView() {
-        
         view.addSubview(searchBarContainerView)
         view.addSubview(artistSectionContainerView)
         view.addSubview(artistCollectionView)
@@ -41,39 +40,50 @@ class SearchArtistsViewController: UIViewController {
         setSubviewProperties()
         setConstraints()
     }
-    func setSubviewImages() {
+    private func setSubviewImages() {
         artistSectionImageView.image = UIImage.init(named: StringConstants.microphoneImageName)
         searchIconImageView.image = UIImage.init(named: StringConstants.searchIconImageName)
         clearButton.setImage(UIImage.init(named: StringConstants.clearIconImageName), for: .normal)
         moreButton.setImage(UIImage.init(named: StringConstants.moreMenuIconImageName), for: .normal)
     }
-    func setSubviewProperties() {
+    private func setSubviewProperties() {
         artistSectionLabel.text = StringConstants.artistSectionText
         artistSectionLabel.textColor = .white
         
         clearButton.addTarget(self, action: #selector(clearSearchTextField), for: .touchUpInside)
     }
-    func setConstraints() {
+    private func setConstraints() {
+        //icon image view
         searchIconImageView.constrainIconImageView(imageView: searchIconImageView, to: searchIconContainerView)
+        
+        //searchbarcontainerview
         Utilities.constrainLeadingAndTrailing(childView: searchBarContainerView, parentView: view, constant: 0)
         searchBarContainerView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
-        searchBarContainerView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.15).isActive = true
+        searchBarContainerView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: SizeConstants.barHeightMultipler).isActive = true
         
+        //artistsectioncontainerview
         Utilities.constrainLeadingAndTrailing(childView: artistSectionContainerView, parentView: view, constant: 0)
         artistSectionContainerView.topAnchor.constraint(equalTo: searchBarContainerView.bottomAnchor).isActive = true
         artistSectionContainerView.heightAnchor.constraint(equalTo: searchBarContainerView.heightAnchor).isActive = true
         
-        
+        //artistsectionimageview
         artistSectionImageView.constrainIconImageView(imageView: artistSectionImageView, to: artistImageContainerView)
+        
+        //artistsectionstackview
         Utilities.constrainToAllSides(childView: artistSectionStackView, parentView: artistSectionContainerView)
+        
+        //buttons
         moreButton.constrainIconButton(iconButton: moreButton)
         clearButton.constrainIconButton(iconButton: clearButton)
-        Utilities.constrainLeadingAndTrailing(childView: searchBarStackView, parentView: searchBarContainerView, constant: 8)
-        searchBarStackView.topAnchor.constraint(equalTo: searchBarContainerView.topAnchor, constant: 8).isActive = true
+        
+        //searchbarstackview
+        Utilities.constrainLeadingAndTrailing(childView: searchBarStackView, parentView: searchBarContainerView, constant: SizeConstants.marginPadding)
+        searchBarStackView.topAnchor.constraint(equalTo: searchBarContainerView.topAnchor, constant: SizeConstants.marginPadding).isActive = true
         searchBarStackView.bottomAnchor.constraint(equalTo: searchBarContainerView.bottomAnchor).isActive = true
         
+        //artistcollectionview
         Utilities.constrainLeadingAndTrailing(childView: artistCollectionView, parentView: view, constant: 0)
-        artistCollectionView.topAnchor.constraint(equalTo: artistSectionContainerView.bottomAnchor, constant: 5).isActive = true
+        artistCollectionView.topAnchor.constraint(equalTo: artistSectionContainerView.bottomAnchor, constant: SizeConstants.marginPadding).isActive = true
         artistCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -81,19 +91,20 @@ class SearchArtistsViewController: UIViewController {
     }
     
     //MARK: - Search Functionality
-    func searchAndDisplayArtists() {
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(searchySearch), object: nil)
-        self.perform(#selector(searchySearch), with: nil, afterDelay: 0.5)
+    func searchAfterDelay() {
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(searchAndDisplayArtists), object: nil)
+        self.perform(#selector(searchAndDisplayArtists), with: nil, afterDelay: 0.5)
     }
-    func searchySearch() {
-        self.artistArray.removeAll()
-        let group = DispatchGroup()
-        group.enter()
+    func searchAndDisplayArtists() {
+        artistArray.removeAll()
+        
+        let searchForArtistGroup = DispatchGroup()
+        searchForArtistGroup.enter()
+        
         if (searchTextField.text != nil) && searchTextField.text != "" {
             DeezerManager.searchForArtist(artists: artistArray, searchString: searchTextField.text!) { (artists:[DeezerArtist]?, error:Error?) in
-                
                 if ((error) != nil) {
-                    
+                    //Show error hud
                 } else {
                     var deezerArtists = artists
                     for artist in self.filterArtistArray(artistArray: deezerArtists) {
@@ -101,10 +112,9 @@ class SearchArtistsViewController: UIViewController {
                     }
                     deezerArtists?.removeAll()
                 }
-                group.leave()
+                searchForArtistGroup.leave()
             }
-            group.notify(queue: DispatchQueue.main) {
-                
+            searchForArtistGroup.notify(queue: DispatchQueue.main) {
                 self.artistCollectionView.reloadData()
             }
         } else {
@@ -145,7 +155,7 @@ class SearchArtistsViewController: UIViewController {
         let searchTextField = SearchTextField()
         searchTextField.tintColor = .white
         searchTextField.textColor = .white
-        searchTextField.addTarget(self, action: #selector(searchAndDisplayArtists), for: UIControlEvents.editingChanged)
+        searchTextField.addTarget(self, action: #selector(searchAfterDelay), for: UIControlEvents.editingChanged)
         return searchTextField
     }()
     //MARK: - Container Views

@@ -32,6 +32,8 @@ struct SizeConstants {
     private init() {}
     
     static let iconImageHeight = CGFloat.init(15)
+    static let barHeightMultipler = CGFloat.init(0.15)
+    static let marginPadding = CGFloat.init(8)
 }
 //MARK: - Strings
 struct StringConstants {
