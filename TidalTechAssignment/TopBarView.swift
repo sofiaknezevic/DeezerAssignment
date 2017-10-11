@@ -12,7 +12,6 @@ class TopBarView: UIView {
     
     private let moreMenuButton = UIButton()
     let closeButton = UIButton()
-    
     private let searchIconImageView = UIImageView()
     private let searchIconContainerView = UIView()
     
@@ -27,12 +26,15 @@ class TopBarView: UIView {
         
         topLabel.textColor = .white
         bottomLabel.textColor = .lightGray
-        
         topLabel.font = UIFont.boldSystemFont(ofSize: 10)
         bottomLabel.font = UIFont.systemFont(ofSize: 8)
         
+        setSubviewImages()
+
         searchIconContainerView.addSubview(searchIconImageView)
+
         addSubview(containerStackView)
+        setConstraints()
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -46,17 +48,14 @@ class TopBarView: UIView {
     private func setSubviewImages() {
         moreMenuButton.setImage(UIImage.init(named: StringConstants.moreMenuIconImageName), for: .normal)
         closeButton.setImage(UIImage.init(named: StringConstants.clearIconImageName), for: .normal)
+
         searchIconImageView.image = UIImage.init(named: StringConstants.searchIconImageName)
     }
     private func setConstraints() {
-        //buttons
         moreMenuButton.constrainIconButton(iconButton: moreMenuButton)
         closeButton.constrainIconButton(iconButton: closeButton)
-        
-        //searchiconimageview
         searchIconImageView.constrainIconImageView(imageView: searchIconImageView, to: searchIconContainerView)
         
-        //containerstackview
         Utilities.constrainToAllSides(childView: containerStackView, parentView: self)
     }
     //MARK: - Lazy Initializer Variables
