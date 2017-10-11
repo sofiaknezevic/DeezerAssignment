@@ -35,6 +35,10 @@ class ArtistAlbumsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     //MARK: - Lazy Initializer Variables
     //MARK: - Album CollectionView
     lazy var albumCollectionView:UICollectionView = {
