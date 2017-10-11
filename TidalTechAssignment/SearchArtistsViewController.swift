@@ -19,6 +19,8 @@ class SearchArtistsViewController: UIViewController {
     let artistSectionImageView = UIImageView()
     let artistSectionLabel = UILabel()
     
+    let searchIconImageView = UIImageView()
+    
     //MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +29,17 @@ class SearchArtistsViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
+    override func viewWillLayoutSubviews() {
+        let border = CALayer()
+        let width = CGFloat(1.0)
+        border.borderColor = UIColor.white.cgColor
+        border.frame = CGRect(x: 0, y: searchTextField.frame.size.height - width, width:  searchTextField.frame.size.width, height: searchTextField.frame.size.height)
+        
+        border.borderWidth = width
+        searchTextField.layer.addSublayer(border)
+        searchTextField.layer.masksToBounds = true
+    }
+
     //MARK: - Setup & Configuration
     private func setUpView() {
         artistImageContainerView.addSubview(artistSectionImageView)
@@ -40,6 +52,8 @@ class SearchArtistsViewController: UIViewController {
         view.addSubview(artistCollectionView)
         view.backgroundColor = .black
         
+        
+
         //constraints
         searchBarContainerView.translatesAutoresizingMaskIntoConstraints = false
         searchBarContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -163,7 +177,8 @@ class SearchArtistsViewController: UIViewController {
     //MARK: - Text Field
     private lazy var searchTextField:UITextField = {
         let searchTextField = UITextField()
-        searchTextField.backgroundColor = .white
+        searchTextField.tintColor = .white
+        searchTextField.textColor = .white
         searchTextField.addTarget(self, action: #selector(searchAndDisplayArtists), for: UIControlEvents.editingChanged)
         return searchTextField
     }()
