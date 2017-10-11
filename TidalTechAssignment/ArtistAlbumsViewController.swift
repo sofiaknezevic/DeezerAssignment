@@ -70,7 +70,16 @@ class ArtistAlbumsViewController: UIViewController {
 //MARK: - Extensions
 //MARK: - UICollectionView Delegate & DataSource
 extension ArtistAlbumsViewController:UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        var albumTracks = [DeezerTrack]()
+        let group = DispatchGroup()
+        group.enter()
+        DeezerManager.retrieveAlbumTracks(album: albumsArray[indexPath.item]) { (trackArray:[DeezerTrack]?, error:Error?) in
+            if let tracks = trackArray {
+                albumTracks = tracks
+            }
+        }
+    }
 }
 extension ArtistAlbumsViewController:UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
