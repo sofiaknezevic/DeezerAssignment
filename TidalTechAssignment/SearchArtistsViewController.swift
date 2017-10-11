@@ -229,7 +229,6 @@ extension SearchArtistsViewController:UICollectionViewDelegate {
         }
         
         retrieveAlbumsGroup.notify(queue: DispatchQueue.main) {
-            
             let albumsViewController = ArtistAlbumsViewController.init(albumsArray: albumsArray, albumArtistName: self.artistArray[indexPath.item].artistName)
             self.present(albumsViewController, animated: true, completion: nil)
         }

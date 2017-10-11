@@ -42,8 +42,10 @@ struct StringConstants {
     private init() {}
     
     static let artistCellIdentifier = "artistCollectionViewCell"
+    static let albumCellIdentifier = "albumCollectionViewCell"
     
     static let artistSectionText = "ARTISTS"
+    static let albumsLabelText = "Albums"
     
     static let microphoneImageName = "microphone"
     static let clearIconImageName = "clearIcon"

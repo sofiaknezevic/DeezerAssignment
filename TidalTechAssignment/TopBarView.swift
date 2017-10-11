@@ -29,6 +29,7 @@ class TopBarView: UIView {
         
         moreMenuButton.setImage(UIImage.init(named: "moreMenuIcon"), for: .normal)
         closeButton.setImage(UIImage.init(named: "clearIcon"), for: .normal)
+        
         searchIconImageView.image = UIImage.init(named: "searchIcon")
         searchIconContainerView.addSubview(searchIconImageView)
         moreMenuButton.constrainIconButton(iconButton: moreMenuButton)
