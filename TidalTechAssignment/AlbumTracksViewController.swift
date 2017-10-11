@@ -12,6 +12,7 @@ class AlbumTracksViewController: UIViewController {
 
     let trackTopBarView = TopBarView.init(frame: .zero)
     var trackArray = [DeezerTrack]()
+    var sections = 0
     
     //MARK: - View LifeCycle
     override func viewDidLoad() {
@@ -29,7 +30,7 @@ class AlbumTracksViewController: UIViewController {
         trackTopBarView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
         trackTopBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         trackTopBarView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        trackTopBarView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.1).isActive = true
+        trackTopBarView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.15).isActive = true
         
         trackAlbumImageView.topAnchor.constraint(equalTo: trackTopBarView.bottomAnchor).isActive = true
         trackAlbumImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -49,10 +50,20 @@ class AlbumTracksViewController: UIViewController {
     init(trackArray:[DeezerTrack], trackArtistName:String, trackAlbumName:String) {
         super.init(nibName: nil, bundle: nil)
         self.trackArray = trackArray
+        numberOfDiscs()
         trackTopBarView.configureView(topLabelText: trackAlbumName, bottomLabelText: trackArtistName)
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    //MARK: - Helpers
+    func numberOfDiscs() {
+        for track in trackArray {
+            if track.trackPosition.intValue == 1 {
+                sections = sections+1
+            }
+        }
     }
     
     //MARK: - Lazy Initializer Variables
@@ -83,7 +94,7 @@ extension AlbumTracksViewController:UICollectionViewDelegate {
 }
 extension AlbumTracksViewController:UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        return sections
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return trackArray.count

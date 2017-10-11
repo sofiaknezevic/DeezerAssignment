@@ -29,7 +29,7 @@ class ArtistAlbumsViewController: UIViewController {
         albumTopBarView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
         albumTopBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         albumTopBarView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        albumTopBarView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.1).isActive = true
+        albumTopBarView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.15).isActive = true
         
         albumCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         albumCollectionView.topAnchor.constraint(equalTo: albumTopBarView.bottomAnchor).isActive = true

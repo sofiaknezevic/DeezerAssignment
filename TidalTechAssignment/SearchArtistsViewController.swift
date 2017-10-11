@@ -32,16 +32,16 @@ class SearchArtistsViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    override func viewDidLayoutSubviews() {
-        let border = CALayer()
-        let width = CGFloat(1.0)
-        border.borderColor = UIColor.white.cgColor
-        border.frame = CGRect(x: 0, y: searchBarContainerView.frame.size.height - width, width:  searchBarContainerView.frame.size.width, height: searchBarContainerView.frame.size.height)
-        
-        border.borderWidth = width
-        searchBarContainerView.layer.addSublayer(border)
-        searchBarContainerView.layer.masksToBounds = true
-    }
+//    override func viewDidLayoutSubviews() {
+//        let border = CALayer()
+//        let width = CGFloat(1.0)
+//        border.borderColor = UIColor.white.cgColor
+//        border.frame = CGRect(x: 100, y: searchBarContainerView.frame.size.height - width, width:  searchBarContainerView.frame.size.width-150, height: searchBarContainerView.frame.size.height)
+//        
+//        border.borderWidth = width
+//        searchBarContainerView.layer.addSublayer(border)
+//        searchBarContainerView.layer.masksToBounds = true
+//    }
 
     //MARK: - Setup & Configuration
     private func setUpView() {
@@ -64,7 +64,7 @@ class SearchArtistsViewController: UIViewController {
         searchBarContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         searchBarContainerView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
         searchBarContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        searchBarContainerView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.1).isActive = true
+        searchBarContainerView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.15).isActive = true
         
         artistSectionContainerView.translatesAutoresizingMaskIntoConstraints = false
         artistSectionContainerView.topAnchor.constraint(equalTo: searchBarContainerView.bottomAnchor).isActive = true
@@ -197,8 +197,8 @@ class SearchArtistsViewController: UIViewController {
         return moreButton
     }()
     //MARK: - Text Field
-    private lazy var searchTextField:UITextField = {
-        let searchTextField = UITextField()
+    private lazy var searchTextField:SearchTextField = {
+        let searchTextField = SearchTextField()
         searchTextField.tintColor = .white
         searchTextField.textColor = .white
         searchTextField.addTarget(self, action: #selector(searchAndDisplayArtists), for: UIControlEvents.editingChanged)
